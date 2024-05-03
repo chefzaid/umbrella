@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205651"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adminFeesPct",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "additionalFeesPct",
+      "fieldType": "Double"
+    }
+  ],
+  "name": "Formula",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

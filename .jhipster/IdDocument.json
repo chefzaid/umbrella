@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205646"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "idType",
+      "fieldType": "IdType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PASSPORT,NATIONAL_ID,RESIDENCY_PERMIT,DRIVING_LICENSE"
+    },
+    {
+      "fieldName": "idNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "IdDocument",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "document",
+      "relationshipName": "document",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

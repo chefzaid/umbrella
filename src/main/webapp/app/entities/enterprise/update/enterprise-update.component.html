@@ -1,0 +1,147 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-enterprise-heading" data-cy="EnterpriseCreateUpdateHeading" jhiTranslate="umbrellaApp.enterprise.home.createOrEditLabel">
+        Créer ou éditer un Enterprise
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.enterprise.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="umbrellaApp.enterprise.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_companyStatus" jhiTranslate="umbrellaApp.enterprise.companyStatus">Company Status</label>
+          <input
+            type="text"
+            class="form-control"
+            name="companyStatus"
+            id="field_companyStatus"
+            data-cy="companyStatus"
+            formControlName="companyStatus"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_logo" jhiTranslate="umbrellaApp.enterprise.logo">Logo</label>
+          <div>
+            @if (editForm.get('logo')!.value) {
+              <div class="form-text text-danger clearfix">
+                <a
+                  class="pull-start"
+                  (click)="openFile(editForm.get('logo')!.value!, editForm.get('logoContentType')!.value!)"
+                  jhiTranslate="entity.action.open"
+                  >Ouvrir</a
+                ><br />
+                <span class="pull-start">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ logo: undefined, logoContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_logo"
+              data-cy="logo"
+              (change)="setFileData($event, 'logo', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_siret" jhiTranslate="umbrellaApp.enterprise.siret">Siret</label>
+          <input type="text" class="form-control" name="siret" id="field_siret" data-cy="siret" formControlName="siret" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_siren" jhiTranslate="umbrellaApp.enterprise.siren">Siren</label>
+          <input type="text" class="form-control" name="siren" id="field_siren" data-cy="siren" formControlName="siren" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_salesTaxNumber" jhiTranslate="umbrellaApp.enterprise.salesTaxNumber">Sales Tax Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="salesTaxNumber"
+            id="field_salesTaxNumber"
+            data-cy="salesTaxNumber"
+            formControlName="salesTaxNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_iban" jhiTranslate="umbrellaApp.enterprise.iban">Iban</label>
+          <input type="text" class="form-control" name="iban" id="field_iban" data-cy="iban" formControlName="iban" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_bicSwift" jhiTranslate="umbrellaApp.enterprise.bicSwift">Bic Swift</label>
+          <input type="text" class="form-control" name="bicSwift" id="field_bicSwift" data-cy="bicSwift" formControlName="bicSwift" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_website" jhiTranslate="umbrellaApp.enterprise.website">Website</label>
+          <input type="text" class="form-control" name="website" id="field_website" data-cy="website" formControlName="website" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_defaultInvoiceTerms" jhiTranslate="umbrellaApp.enterprise.defaultInvoiceTerms"
+            >Default Invoice Terms</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="defaultInvoiceTerms"
+            id="field_defaultInvoiceTerms"
+            data-cy="defaultInvoiceTerms"
+            formControlName="defaultInvoiceTerms"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

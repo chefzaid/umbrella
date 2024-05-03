@@ -1,0 +1,167 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-employment-contract-heading"
+        data-cy="EmploymentContractCreateUpdateHeading"
+        jhiTranslate="umbrellaApp.employmentContract.home.createOrEditLabel"
+      >
+        Créer ou éditer un Employment Contract
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.employmentContract.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_type" jhiTranslate="umbrellaApp.employmentContract.type">Type</label>
+          <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+            <option [ngValue]="null">{{ 'umbrellaApp.EmploymentContractType.null' | translate }}</option>
+            @for (employmentContractType of employmentContractTypeValues; track $index) {
+              <option [value]="employmentContractType">
+                {{ 'umbrellaApp.EmploymentContractType.' + employmentContractType | translate }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_jobTitle" jhiTranslate="umbrellaApp.employmentContract.jobTitle">Job Title</label>
+          <input type="text" class="form-control" name="jobTitle" id="field_jobTitle" data-cy="jobTitle" formControlName="jobTitle" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_hireDate" jhiTranslate="umbrellaApp.employmentContract.hireDate">Hire Date</label>
+          <div class="input-group">
+            <input
+              id="field_hireDate"
+              data-cy="hireDate"
+              type="text"
+              class="form-control"
+              name="hireDate"
+              ngbDatepicker
+              #hireDateDp="ngbDatepicker"
+              formControlName="hireDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="hireDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_salary" jhiTranslate="umbrellaApp.employmentContract.salary">Salary</label>
+          <input type="number" class="form-control" name="salary" id="field_salary" data-cy="salary" formControlName="salary" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_yearlyWorkDays" jhiTranslate="umbrellaApp.employmentContract.yearlyWorkDays"
+            >Yearly Work Days</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="yearlyWorkDays"
+            id="field_yearlyWorkDays"
+            data-cy="yearlyWorkDays"
+            formControlName="yearlyWorkDays"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_signedByEmployer" jhiTranslate="umbrellaApp.employmentContract.signedByEmployer"
+            >Signed By Employer</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="signedByEmployer"
+            id="field_signedByEmployer"
+            data-cy="signedByEmployer"
+            formControlName="signedByEmployer"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_signedByEmployee" jhiTranslate="umbrellaApp.employmentContract.signedByEmployee"
+            >Signed By Employee</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="signedByEmployee"
+            id="field_signedByEmployee"
+            data-cy="signedByEmployee"
+            formControlName="signedByEmployee"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_forumula" jhiTranslate="umbrellaApp.employmentContract.forumula">Forumula</label>
+          <select
+            class="form-control"
+            id="field_forumula"
+            data-cy="forumula"
+            name="forumula"
+            formControlName="forumula"
+            [compareWith]="compareFormula"
+          >
+            <option [ngValue]="null"></option>
+            @for (formulaOption of forumulasCollection; track $index) {
+              <option [ngValue]="formulaOption">{{ formulaOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employmentContract" jhiTranslate="umbrellaApp.employmentContract.employmentContract"
+            >Employment Contract</label
+          >
+          <select
+            class="form-control"
+            id="field_employmentContract"
+            data-cy="employmentContract"
+            name="employmentContract"
+            formControlName="employmentContract"
+            [compareWith]="compareEmploymentContract"
+          >
+            <option [ngValue]="null"></option>
+            @for (employmentContractOption of employmentContractsSharedCollection; track $index) {
+              <option [ngValue]="employmentContractOption">{{ employmentContractOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205655"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "concernedMonth",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "submitDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "validationDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "ExpenseNote",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "mileageAllowance",
+      "relationshipName": "mileageAllowance",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "document",
+      "relationshipName": "document",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "expense",
+      "relationshipName": "expenses",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

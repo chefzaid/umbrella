@@ -1,0 +1,28 @@
+{
+  "umbrellaApp": {
+    "activityReport": {
+      "home": {
+        "title": "ActivityReports",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Activity Report",
+        "createOrEditLabel": "Créer ou éditer un Activity Report",
+        "notFound": "Aucun Activity Report trouvé"
+      },
+      "created": "Un nouveau Activity Report a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Activity Report avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Activity Report avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Activity Report {{ id }} ?"
+      },
+      "detail": {
+        "title": "Activity Report"
+      },
+      "id": "Id",
+      "month": "Month",
+      "balance": "Balance",
+      "comments": "Comments",
+      "operations": "Operations",
+      "employee": "Employee"
+    }
+  }
+}

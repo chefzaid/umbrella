@@ -1,0 +1,36 @@
+{
+  "umbrellaApp": {
+    "expense": {
+      "home": {
+        "title": "Expenses",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Expense",
+        "createOrEditLabel": "Create or edit a Expense",
+        "notFound": "No Expenses found"
+      },
+      "created": "A new Expense is created with identifier {{ param }}",
+      "updated": "A Expense is updated with identifier {{ param }}",
+      "deleted": "A Expense is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Expense {{ id }}?"
+      },
+      "detail": {
+        "title": "Expense"
+      },
+      "id": "Id",
+      "label": "Label",
+      "description": "Description",
+      "amount": "Amount",
+      "currency": "Currency",
+      "tax": "Tax",
+      "expenseDate": "Expense Date",
+      "rebillableToClient": "Rebillable To Client",
+      "comment": "Comment",
+      "submitDate": "Submit Date",
+      "validationDate": "Validation Date",
+      "paymentMethod": "Payment Method",
+      "project": "Project",
+      "expenseNote": "Expense Note"
+    }
+  }
+}

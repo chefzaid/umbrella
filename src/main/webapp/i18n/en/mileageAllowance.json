@@ -1,0 +1,26 @@
+{
+  "umbrellaApp": {
+    "mileageAllowance": {
+      "home": {
+        "title": "Mileage Allowances",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Mileage Allowance",
+        "createOrEditLabel": "Create or edit a Mileage Allowance",
+        "notFound": "No Mileage Allowances found"
+      },
+      "created": "A new Mileage Allowance is created with identifier {{ param }}",
+      "updated": "A Mileage Allowance is updated with identifier {{ param }}",
+      "deleted": "A Mileage Allowance is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Mileage Allowance {{ id }}?"
+      },
+      "detail": {
+        "title": "Mileage Allowance"
+      },
+      "id": "Id",
+      "mileage": "Mileage",
+      "multiplier": "Multiplier",
+      "expenseNote": "Expense Note"
+    }
+  }
+}

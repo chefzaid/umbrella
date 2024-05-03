@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (idDocument()) {
+      <div>
+        <h2 data-cy="idDocumentDetailsHeading"><span jhiTranslate="umbrellaApp.idDocument.detail.title">Id Document</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.idDocument.id">Id</span></dt>
+          <dd>
+            <span>{{ idDocument()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.idDocument.idType">Id Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.IdType.' + (idDocument()!.idType ?? 'null')">{{
+              {
+                null: '',
+                PASSPORT: 'PASSPORT',
+                NATIONAL_ID: 'NATIONAL_ID',
+                RESIDENCY_PERMIT: 'RESIDENCY_PERMIT',
+                DRIVING_LICENSE: 'DRIVING_LICENSE'
+              }[idDocument()!.idType ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.idDocument.idNumber">Id Number</span></dt>
+          <dd>
+            <span>{{ idDocument()!.idNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.idDocument.document">Document</span></dt>
+          <dd>
+            @if (idDocument()!.document) {
+              <div>
+                <a [routerLink]="['/document', idDocument()!.document?.id, 'view']">{{ idDocument()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/id-document', idDocument()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

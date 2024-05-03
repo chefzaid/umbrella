@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (appUser()) {
+      <div>
+        <h2 data-cy="appUserDetailsHeading"><span jhiTranslate="umbrellaApp.appUser.detail.title">App User</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.appUser.id">Id</span></dt>
+          <dd>
+            <span>{{ appUser()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.username">Username</span></dt>
+          <dd>
+            <span>{{ appUser()!.username }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.password">Password</span></dt>
+          <dd>
+            <span>{{ appUser()!.password }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.photo">Photo</span></dt>
+          <dd>
+            @if (appUser()!.photo) {
+              <div>
+                <a (click)="openFile(appUser()!.photo ?? '', appUser()!.photoContentType)" jhiTranslate="entity.action.open">Ouvrir</a>
+                {{ appUser()!.photoContentType }}, {{ byteSize(appUser()!.photo ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.isAdmin">Is Admin</span></dt>
+          <dd>
+            <span>{{ appUser()!.isAdmin }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ appUser()!.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.appUser.contact">Contact</span></dt>
+          <dd>
+            @if (appUser()!.contact) {
+              <div>
+                <a [routerLink]="['/contact', appUser()!.contact?.id, 'view']">{{ appUser()!.contact?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/app-user', appUser()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (invoice()) {
+      <div>
+        <h2 data-cy="invoiceDetailsHeading"><span jhiTranslate="umbrellaApp.invoice.detail.title">Invoice</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.invoice.id">Id</span></dt>
+          <dd>
+            <span>{{ invoice()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.invoiceNumber">Invoice Number</span></dt>
+          <dd>
+            <span>{{ invoice()!.invoiceNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.label">Label</span></dt>
+          <dd>
+            <span>{{ invoice()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.issueDate">Issue Date</span></dt>
+          <dd>
+            <span>{{ invoice()!.issueDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.currency">Currency</span></dt>
+          <dd>
+            <span>{{ invoice()!.currency }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.salesTaxPct">Sales Tax Pct</span></dt>
+          <dd>
+            <span>{{ invoice()!.salesTaxPct }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.terms">Terms</span></dt>
+          <dd>
+            <span>{{ invoice()!.terms }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.poject">Poject</span></dt>
+          <dd>
+            @if (invoice()!.poject) {
+              <div>
+                <a [routerLink]="['/project', invoice()!.poject?.id, 'view']">{{ invoice()!.poject?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoice.document">Document</span></dt>
+          <dd>
+            @if (invoice()!.document) {
+              <div>
+                <a [routerLink]="['/document', invoice()!.document?.id, 'view']">{{ invoice()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/invoice', invoice()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

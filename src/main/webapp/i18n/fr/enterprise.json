@@ -1,0 +1,35 @@
+{
+  "umbrellaApp": {
+    "enterprise": {
+      "home": {
+        "title": "Enterprises",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Enterprise",
+        "createOrEditLabel": "Créer ou éditer un Enterprise",
+        "notFound": "Aucun Enterprise trouvé"
+      },
+      "created": "Un nouveau Enterprise a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Enterprise avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Enterprise avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Enterprise {{ id }} ?"
+      },
+      "detail": {
+        "title": "Enterprise"
+      },
+      "id": "Id",
+      "name": "Name",
+      "companyStatus": "Company Status",
+      "logo": "Logo",
+      "siret": "Siret",
+      "siren": "Siren",
+      "salesTaxNumber": "Sales Tax Number",
+      "iban": "Iban",
+      "bicSwift": "Bic Swift",
+      "website": "Website",
+      "defaultInvoiceTerms": "Default Invoice Terms",
+      "parameters": "Parameters",
+      "documents": "Documents"
+    }
+  }
+}

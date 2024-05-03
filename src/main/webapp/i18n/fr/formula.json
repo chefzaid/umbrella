@@ -1,0 +1,28 @@
+{
+  "umbrellaApp": {
+    "formula": {
+      "home": {
+        "title": "Formulas",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Formula",
+        "createOrEditLabel": "Créer ou éditer un Formula",
+        "notFound": "Aucun Formula trouvé"
+      },
+      "created": "Un nouveau Formula a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Formula avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Formula avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Formula {{ id }} ?"
+      },
+      "detail": {
+        "title": "Formula"
+      },
+      "id": "Id",
+      "label": "Label",
+      "adminFeesPct": "Admin Fees Pct",
+      "additionalFeesPct": "Additional Fees Pct",
+      "prospect": "Prospect",
+      "employmentContract": "Employment Contract"
+    }
+  }
+}

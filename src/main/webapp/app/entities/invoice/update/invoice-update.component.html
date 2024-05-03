@@ -1,0 +1,154 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-invoice-heading" data-cy="InvoiceCreateUpdateHeading" jhiTranslate="umbrellaApp.invoice.home.createOrEditLabel">
+        Créer ou éditer un Invoice
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.invoice.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_invoiceNumber" jhiTranslate="umbrellaApp.invoice.invoiceNumber">Invoice Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="invoiceNumber"
+            id="field_invoiceNumber"
+            data-cy="invoiceNumber"
+            formControlName="invoiceNumber"
+          />
+          @if (editForm.get('invoiceNumber')!.invalid && (editForm.get('invoiceNumber')!.dirty || editForm.get('invoiceNumber')!.touched)) {
+            <div>
+              @if (editForm.get('invoiceNumber')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_label" jhiTranslate="umbrellaApp.invoice.label">Label</label>
+          <input type="text" class="form-control" name="label" id="field_label" data-cy="label" formControlName="label" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_issueDate" jhiTranslate="umbrellaApp.invoice.issueDate">Issue Date</label>
+          <div class="d-flex">
+            <input
+              id="field_issueDate"
+              data-cy="issueDate"
+              type="datetime-local"
+              class="form-control"
+              name="issueDate"
+              formControlName="issueDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (editForm.get('issueDate')!.invalid && (editForm.get('issueDate')!.dirty || editForm.get('issueDate')!.touched)) {
+            <div>
+              @if (editForm.get('issueDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('issueDate')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currency" jhiTranslate="umbrellaApp.invoice.currency">Currency</label>
+          <input type="text" class="form-control" name="currency" id="field_currency" data-cy="currency" formControlName="currency" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_salesTaxPct" jhiTranslate="umbrellaApp.invoice.salesTaxPct">Sales Tax Pct</label>
+          <input
+            type="number"
+            class="form-control"
+            name="salesTaxPct"
+            id="field_salesTaxPct"
+            data-cy="salesTaxPct"
+            formControlName="salesTaxPct"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_terms" jhiTranslate="umbrellaApp.invoice.terms">Terms</label>
+          <input type="text" class="form-control" name="terms" id="field_terms" data-cy="terms" formControlName="terms" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_poject" jhiTranslate="umbrellaApp.invoice.poject">Poject</label>
+          <select
+            class="form-control"
+            id="field_poject"
+            data-cy="poject"
+            name="poject"
+            formControlName="poject"
+            [compareWith]="compareProject"
+          >
+            <option [ngValue]="null"></option>
+            @for (projectOption of pojectsCollection; track $index) {
+              <option [ngValue]="projectOption">{{ projectOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_document" jhiTranslate="umbrellaApp.invoice.document">Document</label>
+          <select
+            class="form-control"
+            id="field_document"
+            data-cy="document"
+            name="document"
+            formControlName="document"
+            [compareWith]="compareDocument"
+          >
+            <option [ngValue]="null"></option>
+            @for (documentOption of documentsCollection; track $index) {
+              <option [ngValue]="documentOption">{{ documentOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

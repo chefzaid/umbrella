@@ -1,0 +1,65 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205648"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "serviceLabel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dailyRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "extensionTerms",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signedBySupplier",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "signedByClient",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "ServiceContract",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "client",
+      "relationshipName": "employee",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "document",
+      "relationshipName": "documents",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "serviceContract",
+      "relationshipName": "amendments",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

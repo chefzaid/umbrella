@@ -1,0 +1,168 @@
+<div>
+  <h2 id="page-heading" data-cy="TimeSheetHeading">
+    <span jhiTranslate="umbrellaApp.timeSheet.home.title">TimeSheets</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.timeSheet.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-time-sheet"
+        [routerLink]="['/time-sheet/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.timeSheet.home.createLabel">Créer un nouveau Time Sheet</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (timeSheets?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.timeSheet.home.notFound">Aucun Time Sheet trouvé</span>
+    </div>
+  }
+
+  @if (timeSheets && timeSheets.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="concernedMonth">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.concernedMonth">Concerned Month</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.creationDate">Creation Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="submitDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.submitDate">Submit Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="validationDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.validationDate">Validation Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="project.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.project">Project</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="document.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.document">Document</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="employee.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.timeSheet.employee">Employee</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (timeSheet of timeSheets; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/time-sheet', timeSheet.id, 'view']">{{ timeSheet.id }}</a>
+              </td>
+              <td>{{ timeSheet.concernedMonth }}</td>
+              <td>{{ timeSheet.creationDate | formatMediumDate }}</td>
+              <td>{{ timeSheet.submitDate | formatMediumDatetime }}</td>
+              <td>{{ timeSheet.validationDate | formatMediumDatetime }}</td>
+              <td>
+                @if (timeSheet.project) {
+                  <div>
+                    <a [routerLink]="['/project', timeSheet.project.id, 'view']">{{ timeSheet.project.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (timeSheet.document) {
+                  <div>
+                    <a [routerLink]="['/document', timeSheet.document.id, 'view']">{{ timeSheet.document.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (timeSheet.employee) {
+                  <div>
+                    <a [routerLink]="['/employee', timeSheet.employee.id, 'view']">{{ timeSheet.employee.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/time-sheet', timeSheet.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/time-sheet', timeSheet.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(timeSheet)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (timeSheets && timeSheets.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

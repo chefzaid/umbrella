@@ -1,0 +1,27 @@
+{
+  "umbrellaApp": {
+    "idDocument": {
+      "home": {
+        "title": "Id Documents",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Id Document",
+        "createOrEditLabel": "Create or edit a Id Document",
+        "notFound": "No Id Documents found"
+      },
+      "created": "A new Id Document is created with identifier {{ param }}",
+      "updated": "A Id Document is updated with identifier {{ param }}",
+      "deleted": "A Id Document is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Id Document {{ id }}?"
+      },
+      "detail": {
+        "title": "Id Document"
+      },
+      "id": "Id",
+      "idType": "Id Type",
+      "idNumber": "Id Number",
+      "document": "Document",
+      "employee": "Employee"
+    }
+  }
+}

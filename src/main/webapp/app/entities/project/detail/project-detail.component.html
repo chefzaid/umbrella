@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (project()) {
+      <div>
+        <h2 data-cy="projectDetailsHeading"><span jhiTranslate="umbrellaApp.project.detail.title">Project</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.project.id">Id</span></dt>
+          <dd>
+            <span>{{ project()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.type">Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.ProjectType.' + (project()!.type ?? 'null')">{{
+              { null: '', NONBILLABLE: 'NONBILLABLE', BILLABLE: 'BILLABLE' }[project()!.type ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.state">State</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.ProjectState.' + (project()!.state ?? 'null')">{{
+              { null: '', CURRENT: 'CURRENT', STANDBY: 'STANDBY', ARCHIVED: 'ARCHIVED' }[project()!.state ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.title">Title</span></dt>
+          <dd>
+            <span>{{ project()!.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.description">Description</span></dt>
+          <dd>
+            <span>{{ project()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.dailyRate">Daily Rate</span></dt>
+          <dd>
+            <span>{{ project()!.dailyRate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ project()!.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ project()!.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.remoteWorkPct">Remote Work Pct</span></dt>
+          <dd>
+            <span>{{ project()!.remoteWorkPct }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.client">Client</span></dt>
+          <dd>
+            @if (project()!.client) {
+              <div>
+                <a [routerLink]="['/client', project()!.client?.id, 'view']">{{ project()!.client?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.project.employee">Employee</span></dt>
+          <dd>
+            @if (project()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', project()!.employee?.id, 'view']">{{ project()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/project', project()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,216 @@
+<div>
+  <h2 id="page-heading" data-cy="ExpenseHeading">
+    <span jhiTranslate="umbrellaApp.expense.home.title">Expenses</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.expense.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-expense"
+        [routerLink]="['/expense/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.expense.home.createLabel">Créer un nouveau Expense</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (expenses?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.expense.home.notFound">Aucun Expense trouvé</span>
+    </div>
+  }
+
+  @if (expenses && expenses.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="label">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.label">Label</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="amount">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.amount">Amount</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="currency">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.currency">Currency</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tax">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.tax">Tax</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expenseDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.expenseDate">Expense Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="rebillableToClient">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.rebillableToClient">Rebillable To Client</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="comment">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.comment">Comment</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="submitDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.submitDate">Submit Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="validationDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.validationDate">Validation Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="paymentMethod.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.paymentMethod">Payment Method</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="project.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.project">Project</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expenseNote.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.expense.expenseNote">Expense Note</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (expense of expenses; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/expense', expense.id, 'view']">{{ expense.id }}</a>
+              </td>
+              <td>{{ expense.label }}</td>
+              <td>{{ expense.description }}</td>
+              <td>{{ expense.amount }}</td>
+              <td>{{ expense.currency }}</td>
+              <td>{{ expense.tax }}</td>
+              <td>{{ expense.expenseDate | formatMediumDate }}</td>
+              <td>{{ expense.rebillableToClient }}</td>
+              <td>{{ expense.comment }}</td>
+              <td>{{ expense.submitDate | formatMediumDatetime }}</td>
+              <td>{{ expense.validationDate | formatMediumDatetime }}</td>
+              <td>
+                @if (expense.paymentMethod) {
+                  <div>
+                    <a [routerLink]="['/parameter', expense.paymentMethod.id, 'view']">{{ expense.paymentMethod.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (expense.project) {
+                  <div>
+                    <a [routerLink]="['/project', expense.project.id, 'view']">{{ expense.project.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (expense.expenseNote) {
+                  <div>
+                    <a [routerLink]="['/expense-note', expense.expenseNote.id, 'view']">{{ expense.expenseNote.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/expense', expense.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/expense', expense.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(expense)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (expenses && expenses.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

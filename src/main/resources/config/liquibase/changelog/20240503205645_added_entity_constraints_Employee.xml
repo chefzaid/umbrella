@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Employee.
+    -->
+    <changeSet id="20240503205645-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="contract_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__contract_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employment_contract"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="id_document_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__id_document_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="id_document"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="wallet_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__wallet_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="wallet"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="manager_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee__manager_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"
+                                 />
+    </changeSet>
+</databaseChangeLog>

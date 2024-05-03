@@ -1,0 +1,158 @@
+<div>
+  <h2 id="page-heading" data-cy="ProspectHeading">
+    <span jhiTranslate="umbrellaApp.prospect.home.title">Prospects</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.prospect.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-prospect"
+        [routerLink]="['/prospect/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.prospect.home.createLabel">Créer un nouveau Prospect</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (prospects?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.prospect.home.notFound">Aucun Prospect trouvé</span>
+    </div>
+  }
+
+  @if (prospects && prospects.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dailyRate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.dailyRate">Daily Rate</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="monthlyExpenses">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.monthlyExpenses">Monthly Expenses</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="taxRate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.taxRate">Tax Rate</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expectedStartDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.expectedStartDate">Expected Start Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expectedClient">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.expectedClient">Expected Client</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notes">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.notes">Notes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="formula.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.prospect.formula">Formula</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (prospect of prospects; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/prospect', prospect.id, 'view']">{{ prospect.id }}</a>
+              </td>
+              <td>{{ prospect.dailyRate }}</td>
+              <td>{{ prospect.monthlyExpenses }}</td>
+              <td>{{ prospect.taxRate }}</td>
+              <td>{{ prospect.expectedStartDate | formatMediumDate }}</td>
+              <td>{{ prospect.expectedClient }}</td>
+              <td>{{ prospect.notes }}</td>
+              <td>
+                @if (prospect.formula) {
+                  <div>
+                    <a [routerLink]="['/formula', prospect.formula.id, 'view']">{{ prospect.formula.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/prospect', prospect.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/prospect', prospect.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(prospect)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (prospects && prospects.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205700"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "totalBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalProvision",
+      "fieldType": "Double"
+    }
+  ],
+  "name": "Wallet",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

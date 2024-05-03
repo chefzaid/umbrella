@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Document.
+    -->
+    <changeSet id="20240503205652-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="document_type_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document__document_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="parameter"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document__employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="employment_contract_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document__employment_contract_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employment_contract"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="service_contract_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document__service_contract_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="service_contract"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="enterprise_id"
+                                 baseTableName="document"
+                                 constraintName="fk_document__enterprise_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="enterprise"
+                                 />
+    </changeSet>
+</databaseChangeLog>

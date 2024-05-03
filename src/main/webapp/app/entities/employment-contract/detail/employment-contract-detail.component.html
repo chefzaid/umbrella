@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (employmentContract()) {
+      <div>
+        <h2 data-cy="employmentContractDetailsHeading">
+          <span jhiTranslate="umbrellaApp.employmentContract.detail.title">Employment Contract</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.id">Id</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.type">Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.EmploymentContractType.' + (employmentContract()!.type ?? 'null')">{{
+              { null: '', PERMNANENT: 'PERMNANENT', TEMPORARY: 'TEMPORARY' }[employmentContract()!.type ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.jobTitle">Job Title</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.jobTitle }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.hireDate">Hire Date</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.hireDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.salary">Salary</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.salary }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.yearlyWorkDays">Yearly Work Days</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.yearlyWorkDays }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.signedByEmployer">Signed By Employer</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.signedByEmployer }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.signedByEmployee">Signed By Employee</span></dt>
+          <dd>
+            <span>{{ employmentContract()!.signedByEmployee }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.forumula">Forumula</span></dt>
+          <dd>
+            @if (employmentContract()!.forumula) {
+              <div>
+                <a [routerLink]="['/formula', employmentContract()!.forumula?.id, 'view']">{{ employmentContract()!.forumula?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employmentContract.employmentContract">Employment Contract</span></dt>
+          <dd>
+            @if (employmentContract()!.employmentContract) {
+              <div>
+                <a [routerLink]="['/employment-contract', employmentContract()!.employmentContract?.id, 'view']">{{
+                  employmentContract()!.employmentContract?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/employment-contract', employmentContract()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

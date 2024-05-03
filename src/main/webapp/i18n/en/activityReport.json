@@ -1,0 +1,28 @@
+{
+  "umbrellaApp": {
+    "activityReport": {
+      "home": {
+        "title": "Activity Reports",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Activity Report",
+        "createOrEditLabel": "Create or edit a Activity Report",
+        "notFound": "No Activity Reports found"
+      },
+      "created": "A new Activity Report is created with identifier {{ param }}",
+      "updated": "A Activity Report is updated with identifier {{ param }}",
+      "deleted": "A Activity Report is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Activity Report {{ id }}?"
+      },
+      "detail": {
+        "title": "Activity Report"
+      },
+      "id": "Id",
+      "month": "Month",
+      "balance": "Balance",
+      "comments": "Comments",
+      "operations": "Operations",
+      "employee": "Employee"
+    }
+  }
+}

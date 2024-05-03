@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (prospect()) {
+      <div>
+        <h2 data-cy="prospectDetailsHeading"><span jhiTranslate="umbrellaApp.prospect.detail.title">Prospect</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.prospect.id">Id</span></dt>
+          <dd>
+            <span>{{ prospect()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.dailyRate">Daily Rate</span></dt>
+          <dd>
+            <span>{{ prospect()!.dailyRate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.monthlyExpenses">Monthly Expenses</span></dt>
+          <dd>
+            <span>{{ prospect()!.monthlyExpenses }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.taxRate">Tax Rate</span></dt>
+          <dd>
+            <span>{{ prospect()!.taxRate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.expectedStartDate">Expected Start Date</span></dt>
+          <dd>
+            <span>{{ prospect()!.expectedStartDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.expectedClient">Expected Client</span></dt>
+          <dd>
+            <span>{{ prospect()!.expectedClient }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.notes">Notes</span></dt>
+          <dd>
+            <span>{{ prospect()!.notes }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.prospect.formula">Formula</span></dt>
+          <dd>
+            @if (prospect()!.formula) {
+              <div>
+                <a [routerLink]="['/formula', prospect()!.formula?.id, 'view']">{{ prospect()!.formula?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/prospect', prospect()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="IdDocumentHeading">
+    <span jhiTranslate="umbrellaApp.idDocument.home.title">IdDocuments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.idDocument.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-id-document"
+        [routerLink]="['/id-document/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.idDocument.home.createLabel">Créer un nouveau Id Document</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (idDocuments?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.idDocument.home.notFound">Aucun Id Document trouvé</span>
+    </div>
+  }
+
+  @if (idDocuments && idDocuments.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.idDocument.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="idType">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.idDocument.idType">Id Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="idNumber">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.idDocument.idNumber">Id Number</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="document.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.idDocument.document">Document</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (idDocument of idDocuments; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/id-document', idDocument.id, 'view']">{{ idDocument.id }}</a>
+              </td>
+              <td [jhiTranslate]="'umbrellaApp.IdType.' + (idDocument.idType ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    PASSPORT: 'PASSPORT',
+                    NATIONAL_ID: 'NATIONAL_ID',
+                    RESIDENCY_PERMIT: 'RESIDENCY_PERMIT',
+                    DRIVING_LICENSE: 'DRIVING_LICENSE'
+                  }[idDocument.idType ?? 'null']
+                }}
+              </td>
+              <td>{{ idDocument.idNumber }}</td>
+              <td>
+                @if (idDocument.document) {
+                  <div>
+                    <a [routerLink]="['/document', idDocument.document.id, 'view']">{{ idDocument.document.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/id-document', idDocument.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/id-document', idDocument.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(idDocument)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (idDocuments && idDocuments.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

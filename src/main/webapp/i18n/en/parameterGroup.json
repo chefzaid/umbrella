@@ -1,0 +1,25 @@
+{
+  "umbrellaApp": {
+    "parameterGroup": {
+      "home": {
+        "title": "Parameter Groups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Parameter Group",
+        "createOrEditLabel": "Create or edit a Parameter Group",
+        "notFound": "No Parameter Groups found"
+      },
+      "created": "A new Parameter Group is created with identifier {{ param }}",
+      "updated": "A Parameter Group is updated with identifier {{ param }}",
+      "deleted": "A Parameter Group is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Parameter Group {{ id }}?"
+      },
+      "detail": {
+        "title": "Parameter Group"
+      },
+      "id": "Id",
+      "label": "Label",
+      "description": "Description"
+    }
+  }
+}

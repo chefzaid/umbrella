@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (contact()) {
+      <div>
+        <h2 data-cy="contactDetailsHeading"><span jhiTranslate="umbrellaApp.contact.detail.title">Contact</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.contact.id">Id</span></dt>
+          <dd>
+            <span>{{ contact()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ contact()!.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ contact()!.lastName }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.email">Email</span></dt>
+          <dd>
+            <span>{{ contact()!.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.phoneNumber">Phone Number</span></dt>
+          <dd>
+            <span>{{ contact()!.phoneNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.jobTitle">Job Title</span></dt>
+          <dd>
+            <span>{{ contact()!.jobTitle }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.address">Address</span></dt>
+          <dd>
+            @if (contact()!.address) {
+              <div>
+                <a [routerLink]="['/address', contact()!.address?.id, 'view']">{{ contact()!.address?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.contact.client">Client</span></dt>
+          <dd>
+            @if (contact()!.client) {
+              <div>
+                <a [routerLink]="['/client', contact()!.client?.id, 'view']">{{ contact()!.client?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/contact', contact()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

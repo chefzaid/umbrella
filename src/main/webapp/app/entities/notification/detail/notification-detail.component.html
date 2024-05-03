@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (notification()) {
+      <div>
+        <h2 data-cy="notificationDetailsHeading"><span jhiTranslate="umbrellaApp.notification.detail.title">Notification</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.notification.id">Id</span></dt>
+          <dd>
+            <span>{{ notification()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.title">Title</span></dt>
+          <dd>
+            <span>{{ notification()!.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.description">Description</span></dt>
+          <dd>
+            <span>{{ notification()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ notification()!.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.readDate">Read Date</span></dt>
+          <dd>
+            <span>{{ notification()!.readDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.hide">Hide</span></dt>
+          <dd>
+            <span>{{ notification()!.hide }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.author">Author</span></dt>
+          <dd>
+            @if (notification()!.author) {
+              <div>
+                <a [routerLink]="['/employee', notification()!.author?.id, 'view']">{{ notification()!.author?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.notification.receiver">Receiver</span></dt>
+          <dd>
+            @if (notification()!.receiver) {
+              <div>
+                <a [routerLink]="['/employee', notification()!.receiver?.id, 'view']">{{ notification()!.receiver?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/notification', notification()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

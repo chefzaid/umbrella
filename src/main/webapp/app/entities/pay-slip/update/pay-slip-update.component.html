@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-pay-slip-heading" data-cy="PaySlipCreateUpdateHeading" jhiTranslate="umbrellaApp.paySlip.home.createOrEditLabel">
+        Créer ou éditer un Pay Slip
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.paySlip.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_superGrossSalary" jhiTranslate="umbrellaApp.paySlip.superGrossSalary"
+            >Super Gross Salary</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="superGrossSalary"
+            id="field_superGrossSalary"
+            data-cy="superGrossSalary"
+            formControlName="superGrossSalary"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_grossSalary" jhiTranslate="umbrellaApp.paySlip.grossSalary">Gross Salary</label>
+          <input
+            type="number"
+            class="form-control"
+            name="grossSalary"
+            id="field_grossSalary"
+            data-cy="grossSalary"
+            formControlName="grossSalary"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_netSalary" jhiTranslate="umbrellaApp.paySlip.netSalary">Net Salary</label>
+          <input type="number" class="form-control" name="netSalary" id="field_netSalary" data-cy="netSalary" formControlName="netSalary" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_taxRate" jhiTranslate="umbrellaApp.paySlip.taxRate">Tax Rate</label>
+          <input type="number" class="form-control" name="taxRate" id="field_taxRate" data-cy="taxRate" formControlName="taxRate" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_amountPaid" jhiTranslate="umbrellaApp.paySlip.amountPaid">Amount Paid</label>
+          <input
+            type="number"
+            class="form-control"
+            name="amountPaid"
+            id="field_amountPaid"
+            data-cy="amountPaid"
+            formControlName="amountPaid"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalExpenses" jhiTranslate="umbrellaApp.paySlip.totalExpenses">Total Expenses</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalExpenses"
+            id="field_totalExpenses"
+            data-cy="totalExpenses"
+            formControlName="totalExpenses"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_document" jhiTranslate="umbrellaApp.paySlip.document">Document</label>
+          <select
+            class="form-control"
+            id="field_document"
+            data-cy="document"
+            name="document"
+            formControlName="document"
+            [compareWith]="compareDocument"
+          >
+            <option [ngValue]="null"></option>
+            @for (documentOption of documentsCollection; track $index) {
+              <option [ngValue]="documentOption">{{ documentOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employee" jhiTranslate="umbrellaApp.paySlip.employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="compareEmployee"
+          >
+            <option [ngValue]="null"></option>
+            @for (employeeOption of employeesSharedCollection; track $index) {
+              <option [ngValue]="employeeOption">{{ employeeOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

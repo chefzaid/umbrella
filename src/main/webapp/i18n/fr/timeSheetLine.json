@@ -1,0 +1,27 @@
+{
+  "umbrellaApp": {
+    "timeSheetLine": {
+      "home": {
+        "title": "TimeSheetLines",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Time Sheet Line",
+        "createOrEditLabel": "Créer ou éditer un Time Sheet Line",
+        "notFound": "Aucun Time Sheet Line trouvé"
+      },
+      "created": "Un nouveau Time Sheet Line a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Time Sheet Line avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Time Sheet Line avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Time Sheet Line {{ id }} ?"
+      },
+      "detail": {
+        "title": "Time Sheet Line"
+      },
+      "id": "Id",
+      "monthlyDays": "Monthly Days",
+      "extraHours": "Extra Hours",
+      "comments": "Comments",
+      "timeSheet": "Time Sheet"
+    }
+  }
+}

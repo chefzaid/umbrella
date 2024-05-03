@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (timeSheet()) {
+      <div>
+        <h2 data-cy="timeSheetDetailsHeading"><span jhiTranslate="umbrellaApp.timeSheet.detail.title">Time Sheet</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.id">Id</span></dt>
+          <dd>
+            <span>{{ timeSheet()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.concernedMonth">Concerned Month</span></dt>
+          <dd>
+            <span>{{ timeSheet()!.concernedMonth }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ timeSheet()!.creationDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.submitDate">Submit Date</span></dt>
+          <dd>
+            <span>{{ timeSheet()!.submitDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.validationDate">Validation Date</span></dt>
+          <dd>
+            <span>{{ timeSheet()!.validationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.project">Project</span></dt>
+          <dd>
+            @if (timeSheet()!.project) {
+              <div>
+                <a [routerLink]="['/project', timeSheet()!.project?.id, 'view']">{{ timeSheet()!.project?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.document">Document</span></dt>
+          <dd>
+            @if (timeSheet()!.document) {
+              <div>
+                <a [routerLink]="['/document', timeSheet()!.document?.id, 'view']">{{ timeSheet()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheet.employee">Employee</span></dt>
+          <dd>
+            @if (timeSheet()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', timeSheet()!.employee?.id, 'view']">{{ timeSheet()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/time-sheet', timeSheet()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

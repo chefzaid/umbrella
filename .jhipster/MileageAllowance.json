@@ -1,0 +1,27 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205657"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "mileage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "multiplier",
+      "fieldType": "Long"
+    }
+  ],
+  "name": "MileageAllowance",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

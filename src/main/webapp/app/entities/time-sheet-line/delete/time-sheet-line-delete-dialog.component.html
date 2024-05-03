@@ -1,0 +1,30 @@
+@if (timeSheetLine) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(timeSheetLine.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="timeSheetLineDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmation de suppression</h4>
+
+      <span class="btn btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()"></span>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error></jhi-alert-error>
+      <p
+        id="jhi-delete-timeSheetLine-heading"
+        jhiTranslate="umbrellaApp.timeSheetLine.delete.question"
+        [translateValues]="{ id: timeSheetLine.id }"
+      >
+        Êtes-vous certain de vouloir supprimer le Time Sheet Line {{ timeSheetLine.id }} ?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+      </button>
+
+      <button id="jhi-confirm-delete-timeSheetLine" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Supprimer</span>
+      </button>
+    </div>
+  </form>
+}

@@ -1,0 +1,72 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205704"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "siret",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "siren",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesTaxNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "iban",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "bicSwift",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "website",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultInvoiceTerms",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Enterprise",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "parameter",
+      "relationshipName": "parameters",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "document",
+      "relationshipName": "documents",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (paySlip()) {
+      <div>
+        <h2 data-cy="paySlipDetailsHeading"><span jhiTranslate="umbrellaApp.paySlip.detail.title">Pay Slip</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.paySlip.id">Id</span></dt>
+          <dd>
+            <span>{{ paySlip()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.superGrossSalary">Super Gross Salary</span></dt>
+          <dd>
+            <span>{{ paySlip()!.superGrossSalary }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.grossSalary">Gross Salary</span></dt>
+          <dd>
+            <span>{{ paySlip()!.grossSalary }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.netSalary">Net Salary</span></dt>
+          <dd>
+            <span>{{ paySlip()!.netSalary }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.taxRate">Tax Rate</span></dt>
+          <dd>
+            <span>{{ paySlip()!.taxRate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.amountPaid">Amount Paid</span></dt>
+          <dd>
+            <span>{{ paySlip()!.amountPaid }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.totalExpenses">Total Expenses</span></dt>
+          <dd>
+            <span>{{ paySlip()!.totalExpenses }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.document">Document</span></dt>
+          <dd>
+            @if (paySlip()!.document) {
+              <div>
+                <a [routerLink]="['/document', paySlip()!.document?.id, 'view']">{{ paySlip()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.paySlip.employee">Employee</span></dt>
+          <dd>
+            @if (paySlip()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', paySlip()!.employee?.id, 'view']">{{ paySlip()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/pay-slip', paySlip()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
