@@ -1,0 +1,9 @@
+{
+  "umbrellaApp": {
+    "ProjectType": {
+      "null": "",
+      "NONBILLABLE": "NONBILLABLE",
+      "BILLABLE": "BILLABLE"
+    }
+  }
+}

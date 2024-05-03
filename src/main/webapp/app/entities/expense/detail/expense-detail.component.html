@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (expense()) {
+      <div>
+        <h2 data-cy="expenseDetailsHeading"><span jhiTranslate="umbrellaApp.expense.detail.title">Expense</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.expense.id">Id</span></dt>
+          <dd>
+            <span>{{ expense()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.label">Label</span></dt>
+          <dd>
+            <span>{{ expense()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.description">Description</span></dt>
+          <dd>
+            <span>{{ expense()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.amount">Amount</span></dt>
+          <dd>
+            <span>{{ expense()!.amount }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.currency">Currency</span></dt>
+          <dd>
+            <span>{{ expense()!.currency }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.tax">Tax</span></dt>
+          <dd>
+            <span>{{ expense()!.tax }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.expenseDate">Expense Date</span></dt>
+          <dd>
+            <span>{{ expense()!.expenseDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.rebillableToClient">Rebillable To Client</span></dt>
+          <dd>
+            <span>{{ expense()!.rebillableToClient }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.comment">Comment</span></dt>
+          <dd>
+            <span>{{ expense()!.comment }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.submitDate">Submit Date</span></dt>
+          <dd>
+            <span>{{ expense()!.submitDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.validationDate">Validation Date</span></dt>
+          <dd>
+            <span>{{ expense()!.validationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.paymentMethod">Payment Method</span></dt>
+          <dd>
+            @if (expense()!.paymentMethod) {
+              <div>
+                <a [routerLink]="['/parameter', expense()!.paymentMethod?.id, 'view']">{{ expense()!.paymentMethod?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.project">Project</span></dt>
+          <dd>
+            @if (expense()!.project) {
+              <div>
+                <a [routerLink]="['/project', expense()!.project?.id, 'view']">{{ expense()!.project?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expense.expenseNote">Expense Note</span></dt>
+          <dd>
+            @if (expense()!.expenseNote) {
+              <div>
+                <a [routerLink]="['/expense-note', expense()!.expenseNote?.id, 'view']">{{ expense()!.expenseNote?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/expense', expense()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

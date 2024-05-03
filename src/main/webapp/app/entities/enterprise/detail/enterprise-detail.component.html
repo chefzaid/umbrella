@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (enterprise()) {
+      <div>
+        <h2 data-cy="enterpriseDetailsHeading"><span jhiTranslate="umbrellaApp.enterprise.detail.title">Enterprise</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.enterprise.id">Id</span></dt>
+          <dd>
+            <span>{{ enterprise()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.name">Name</span></dt>
+          <dd>
+            <span>{{ enterprise()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.companyStatus">Company Status</span></dt>
+          <dd>
+            <span>{{ enterprise()!.companyStatus }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.logo">Logo</span></dt>
+          <dd>
+            @if (enterprise()!.logo) {
+              <div>
+                <a (click)="openFile(enterprise()!.logo ?? '', enterprise()!.logoContentType)" jhiTranslate="entity.action.open">Ouvrir</a>
+                {{ enterprise()!.logoContentType }}, {{ byteSize(enterprise()!.logo ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.siret">Siret</span></dt>
+          <dd>
+            <span>{{ enterprise()!.siret }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.siren">Siren</span></dt>
+          <dd>
+            <span>{{ enterprise()!.siren }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.salesTaxNumber">Sales Tax Number</span></dt>
+          <dd>
+            <span>{{ enterprise()!.salesTaxNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.iban">Iban</span></dt>
+          <dd>
+            <span>{{ enterprise()!.iban }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.bicSwift">Bic Swift</span></dt>
+          <dd>
+            <span>{{ enterprise()!.bicSwift }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.website">Website</span></dt>
+          <dd>
+            <span>{{ enterprise()!.website }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.enterprise.defaultInvoiceTerms">Default Invoice Terms</span></dt>
+          <dd>
+            <span>{{ enterprise()!.defaultInvoiceTerms }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/enterprise', enterprise()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,217 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-expense-heading" data-cy="ExpenseCreateUpdateHeading" jhiTranslate="umbrellaApp.expense.home.createOrEditLabel">
+        Créer ou éditer un Expense
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.expense.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_label" jhiTranslate="umbrellaApp.expense.label">Label</label>
+          <input type="text" class="form-control" name="label" id="field_label" data-cy="label" formControlName="label" />
+          @if (editForm.get('label')!.invalid && (editForm.get('label')!.dirty || editForm.get('label')!.touched)) {
+            <div>
+              @if (editForm.get('label')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="umbrellaApp.expense.description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_amount" jhiTranslate="umbrellaApp.expense.amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          @if (editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)) {
+            <div>
+              @if (editForm.get('amount')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('amount')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currency" jhiTranslate="umbrellaApp.expense.currency">Currency</label>
+          <input type="text" class="form-control" name="currency" id="field_currency" data-cy="currency" formControlName="currency" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tax" jhiTranslate="umbrellaApp.expense.tax">Tax</label>
+          <input type="number" class="form-control" name="tax" id="field_tax" data-cy="tax" formControlName="tax" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expenseDate" jhiTranslate="umbrellaApp.expense.expenseDate">Expense Date</label>
+          <div class="input-group">
+            <input
+              id="field_expenseDate"
+              data-cy="expenseDate"
+              type="text"
+              class="form-control"
+              name="expenseDate"
+              ngbDatepicker
+              #expenseDateDp="ngbDatepicker"
+              formControlName="expenseDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="expenseDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_rebillableToClient" jhiTranslate="umbrellaApp.expense.rebillableToClient"
+            >Rebillable To Client</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="rebillableToClient"
+            id="field_rebillableToClient"
+            data-cy="rebillableToClient"
+            formControlName="rebillableToClient"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_comment" jhiTranslate="umbrellaApp.expense.comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_submitDate" jhiTranslate="umbrellaApp.expense.submitDate">Submit Date</label>
+          <div class="d-flex">
+            <input
+              id="field_submitDate"
+              data-cy="submitDate"
+              type="datetime-local"
+              class="form-control"
+              name="submitDate"
+              formControlName="submitDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_validationDate" jhiTranslate="umbrellaApp.expense.validationDate">Validation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_validationDate"
+              data-cy="validationDate"
+              type="datetime-local"
+              class="form-control"
+              name="validationDate"
+              formControlName="validationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paymentMethod" jhiTranslate="umbrellaApp.expense.paymentMethod">Payment Method</label>
+          <select
+            class="form-control"
+            id="field_paymentMethod"
+            data-cy="paymentMethod"
+            name="paymentMethod"
+            formControlName="paymentMethod"
+            [compareWith]="compareParameter"
+          >
+            <option [ngValue]="null"></option>
+            @for (parameterOption of paymentMethodsCollection; track $index) {
+              <option [ngValue]="parameterOption">{{ parameterOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_project" jhiTranslate="umbrellaApp.expense.project">Project</label>
+          <select
+            class="form-control"
+            id="field_project"
+            data-cy="project"
+            name="project"
+            formControlName="project"
+            [compareWith]="compareProject"
+          >
+            <option [ngValue]="null"></option>
+            @for (projectOption of projectsCollection; track $index) {
+              <option [ngValue]="projectOption">{{ projectOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expenseNote" jhiTranslate="umbrellaApp.expense.expenseNote">Expense Note</label>
+          <select
+            class="form-control"
+            id="field_expenseNote"
+            data-cy="expenseNote"
+            name="expenseNote"
+            formControlName="expenseNote"
+            [compareWith]="compareExpenseNote"
+          >
+            <option [ngValue]="null"></option>
+            @for (expenseNoteOption of expenseNotesSharedCollection; track $index) {
+              <option [ngValue]="expenseNoteOption">{{ expenseNoteOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

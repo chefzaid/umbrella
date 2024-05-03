@@ -1,0 +1,34 @@
+{
+  "umbrellaApp": {
+    "serviceContract": {
+      "home": {
+        "title": "ServiceContracts",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Service Contract",
+        "createOrEditLabel": "Créer ou éditer un Service Contract",
+        "notFound": "Aucun Service Contract trouvé"
+      },
+      "created": "Un nouveau Service Contract a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Service Contract avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Service Contract avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Service Contract {{ id }} ?"
+      },
+      "detail": {
+        "title": "Service Contract"
+      },
+      "id": "Id",
+      "serviceLabel": "Service Label",
+      "dailyRate": "Daily Rate",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "extensionTerms": "Extension Terms",
+      "signedBySupplier": "Signed By Supplier",
+      "signedByClient": "Signed By Client",
+      "employee": "Employee",
+      "documents": "Documents",
+      "amendments": "Amendments",
+      "serviceContract": "Service Contract"
+    }
+  }
+}

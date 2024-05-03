@@ -1,0 +1,28 @@
+{
+  "umbrellaApp": {
+    "invoiceLine": {
+      "home": {
+        "title": "InvoiceLines",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Invoice Line",
+        "createOrEditLabel": "Créer ou éditer un Invoice Line",
+        "notFound": "Aucun Invoice Line trouvé"
+      },
+      "created": "Un nouveau Invoice Line a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Invoice Line avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Invoice Line avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Invoice Line {{ id }} ?"
+      },
+      "detail": {
+        "title": "Invoice Line"
+      },
+      "id": "Id",
+      "label": "Label",
+      "description": "Description",
+      "price": "Price",
+      "quantity": "Quantity",
+      "invoice": "Invoice"
+    }
+  }
+}

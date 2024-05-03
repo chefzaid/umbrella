@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (wallet()) {
+      <div>
+        <h2 data-cy="walletDetailsHeading"><span jhiTranslate="umbrellaApp.wallet.detail.title">Wallet</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.wallet.id">Id</span></dt>
+          <dd>
+            <span>{{ wallet()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.wallet.totalBalance">Total Balance</span></dt>
+          <dd>
+            <span>{{ wallet()!.totalBalance }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.wallet.totalProvision">Total Provision</span></dt>
+          <dd>
+            <span>{{ wallet()!.totalProvision }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/wallet', wallet()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

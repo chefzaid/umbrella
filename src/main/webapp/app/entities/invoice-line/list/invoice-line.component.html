@@ -1,0 +1,142 @@
+<div>
+  <h2 id="page-heading" data-cy="InvoiceLineHeading">
+    <span jhiTranslate="umbrellaApp.invoiceLine.home.title">InvoiceLines</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.invoiceLine.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-invoice-line"
+        [routerLink]="['/invoice-line/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.invoiceLine.home.createLabel">Créer un nouveau Invoice Line</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (invoiceLines?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.invoiceLine.home.notFound">Aucun Invoice Line trouvé</span>
+    </div>
+  }
+
+  @if (invoiceLines && invoiceLines.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="label">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.label">Label</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="price">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.price">Price</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantity">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.quantity">Quantity</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="invoice.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.invoiceLine.invoice">Invoice</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (invoiceLine of invoiceLines; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/invoice-line', invoiceLine.id, 'view']">{{ invoiceLine.id }}</a>
+              </td>
+              <td>{{ invoiceLine.label }}</td>
+              <td>{{ invoiceLine.description }}</td>
+              <td>{{ invoiceLine.price }}</td>
+              <td>{{ invoiceLine.quantity }}</td>
+              <td>
+                @if (invoiceLine.invoice) {
+                  <div>
+                    <a [routerLink]="['/invoice', invoiceLine.invoice.id, 'view']">{{ invoiceLine.invoice.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/invoice-line', invoiceLine.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/invoice-line', invoiceLine.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(invoiceLine)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (invoiceLines && invoiceLines.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

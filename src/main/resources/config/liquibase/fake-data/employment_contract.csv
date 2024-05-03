@@ -1,0 +1,11 @@
+id;type;job_title;hire_date;salary;yearly_work_days;signed_by_employer;signed_by_employee
+1;PERMNANENT;Developpeur des solutions client;2024-05-02;12987.05;18655;false;false
+2;TEMPORARY;Analyste de paradigme interne;2024-05-03;31054.25;23747;false;false
+3;TEMPORARY;Executif des applications humain;2024-05-03;4731.05;19579;true;true
+4;TEMPORARY;Superviseur des directives central;2024-05-03;31108.41;3724;true;false
+5;TEMPORARY;Specialiste de paradigme international;2024-05-03;24330.55;27238;false;false
+6;PERMNANENT;Directeur des interactions futur;2024-05-03;18727.92;17499;true;false
+7;TEMPORARY;Administrateur de l'identité humain;2024-05-03;8018.47;25699;false;false
+8;PERMNANENT;Directeur de programme principal;2024-05-03;19718.02;4813;true;false
+9;PERMNANENT;Designer de la responsabilité humain;2024-05-02;17001.46;7726;false;true
+10;TEMPORARY;Superviseur de marque central;2024-05-02;11049.7;28116;false;true

@@ -1,0 +1,32 @@
+{
+  "umbrellaApp": {
+    "expenseNote": {
+      "home": {
+        "title": "ExpenseNotes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Expense Note",
+        "createOrEditLabel": "Créer ou éditer un Expense Note",
+        "notFound": "Aucun Expense Note trouvé"
+      },
+      "created": "Un nouveau Expense Note a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Expense Note avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Expense Note avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Expense Note {{ id }} ?"
+      },
+      "detail": {
+        "title": "Expense Note"
+      },
+      "id": "Id",
+      "label": "Label",
+      "concernedMonth": "Concerned Month",
+      "creationDate": "Creation Date",
+      "submitDate": "Submit Date",
+      "validationDate": "Validation Date",
+      "mileageAllowance": "Mileage Allowance",
+      "document": "Document",
+      "expenses": "Expenses",
+      "employee": "Employee"
+    }
+  }
+}

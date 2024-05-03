@@ -1,0 +1,32 @@
+{
+  "umbrellaApp": {
+    "invoice": {
+      "home": {
+        "title": "Invoices",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Invoice",
+        "createOrEditLabel": "Create or edit a Invoice",
+        "notFound": "No Invoices found"
+      },
+      "created": "A new Invoice is created with identifier {{ param }}",
+      "updated": "A Invoice is updated with identifier {{ param }}",
+      "deleted": "A Invoice is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Invoice {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice"
+      },
+      "id": "Id",
+      "invoiceNumber": "Invoice Number",
+      "label": "Label",
+      "issueDate": "Issue Date",
+      "currency": "Currency",
+      "salesTaxPct": "Sales Tax Pct",
+      "terms": "Terms",
+      "poject": "Poject",
+      "document": "Document",
+      "lines": "Lines"
+    }
+  }
+}

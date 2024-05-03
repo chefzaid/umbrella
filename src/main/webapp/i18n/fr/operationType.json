@@ -1,0 +1,9 @@
+{
+  "umbrellaApp": {
+    "OperationType": {
+      "null": "",
+      "CREDIT": "CREDIT",
+      "DEBIT": "DEBIT"
+    }
+  }
+}

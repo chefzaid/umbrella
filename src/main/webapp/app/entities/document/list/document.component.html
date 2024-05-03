@@ -1,0 +1,209 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentHeading">
+    <span jhiTranslate="umbrellaApp.document.home.title">Documents</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.document.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-document"
+        [routerLink]="['/document/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.document.home.createLabel">Créer un nouveau Document</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (documents?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.document.home.notFound">Aucun Document trouvé</span>
+    </div>
+  }
+
+  @if (documents && documents.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="label">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.label">Label</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="uploadDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.uploadDate">Upload Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="issuingDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.issuingDate">Issuing Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expirationDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.expirationDate">Expiration Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="file">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.file">File</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="documentType.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.documentType">Document Type</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="employee.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.employee">Employee</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="employmentContract.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.employmentContract">Employment Contract</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="serviceContract.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.serviceContract">Service Contract</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="enterprise.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.document.enterprise">Enterprise</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (document of documents; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/document', document.id, 'view']">{{ document.id }}</a>
+              </td>
+              <td>{{ document.label }}</td>
+              <td>{{ document.uploadDate | formatMediumDatetime }}</td>
+              <td>{{ document.issuingDate | formatMediumDatetime }}</td>
+              <td>{{ document.expirationDate | formatMediumDatetime }}</td>
+              <td>
+                @if (document.file) {
+                  <a (click)="openFile(document.file, document.fileContentType)" jhiTranslate="entity.action.open">Ouvrir</a>
+                  <span>{{ document.fileContentType }}, {{ byteSize(document.file) }}</span>
+                }
+              </td>
+              <td>
+                @if (document.documentType) {
+                  <div>
+                    <a [routerLink]="['/parameter', document.documentType.id, 'view']">{{ document.documentType.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (document.employee) {
+                  <div>
+                    <a [routerLink]="['/employee', document.employee.id, 'view']">{{ document.employee.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (document.employmentContract) {
+                  <div>
+                    <a [routerLink]="['/employment-contract', document.employmentContract.id, 'view']">{{
+                      document.employmentContract.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (document.serviceContract) {
+                  <div>
+                    <a [routerLink]="['/service-contract', document.serviceContract.id, 'view']">{{ document.serviceContract.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (document.enterprise) {
+                  <div>
+                    <a [routerLink]="['/enterprise', document.enterprise.id, 'view']">{{ document.enterprise.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/document', document.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/document', document.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(document)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (documents && documents.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

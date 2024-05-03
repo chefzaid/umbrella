@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205643"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "dailyRate",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "monthlyExpenses",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taxRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "expectedStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "expectedClient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Prospect",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "formula",
+      "relationshipName": "formula",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

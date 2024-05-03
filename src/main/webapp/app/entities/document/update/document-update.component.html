@@ -1,0 +1,223 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading" jhiTranslate="umbrellaApp.document.home.createOrEditLabel">
+        Créer ou éditer un Document
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.document.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_label" jhiTranslate="umbrellaApp.document.label">Label</label>
+          <input type="text" class="form-control" name="label" id="field_label" data-cy="label" formControlName="label" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_uploadDate" jhiTranslate="umbrellaApp.document.uploadDate">Upload Date</label>
+          <div class="d-flex">
+            <input
+              id="field_uploadDate"
+              data-cy="uploadDate"
+              type="datetime-local"
+              class="form-control"
+              name="uploadDate"
+              formControlName="uploadDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_issuingDate" jhiTranslate="umbrellaApp.document.issuingDate">Issuing Date</label>
+          <div class="d-flex">
+            <input
+              id="field_issuingDate"
+              data-cy="issuingDate"
+              type="datetime-local"
+              class="form-control"
+              name="issuingDate"
+              formControlName="issuingDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expirationDate" jhiTranslate="umbrellaApp.document.expirationDate">Expiration Date</label>
+          <div class="d-flex">
+            <input
+              id="field_expirationDate"
+              data-cy="expirationDate"
+              type="datetime-local"
+              class="form-control"
+              name="expirationDate"
+              formControlName="expirationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_file" jhiTranslate="umbrellaApp.document.file">File</label>
+          <div>
+            @if (editForm.get('file')!.value) {
+              <div class="form-text text-danger clearfix">
+                <a
+                  class="pull-start"
+                  (click)="openFile(editForm.get('file')!.value!, editForm.get('fileContentType')!.value!)"
+                  jhiTranslate="entity.action.open"
+                  >Ouvrir</a
+                ><br />
+                <span class="pull-start">{{ editForm.get('fileContentType')!.value }}, {{ byteSize(editForm.get('file')!.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ file: undefined, fileContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_file"
+              data-cy="file"
+              (change)="setFileData($event, 'file', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="file" id="field_file" data-cy="file" formControlName="file" />
+          <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType" formControlName="fileContentType" />
+          @if (editForm.get('file')!.invalid && (editForm.get('file')!.dirty || editForm.get('file')!.touched)) {
+            <div>
+              @if (editForm.get('file')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_documentType" jhiTranslate="umbrellaApp.document.documentType">Document Type</label>
+          <select
+            class="form-control"
+            id="field_documentType"
+            data-cy="documentType"
+            name="documentType"
+            formControlName="documentType"
+            [compareWith]="compareParameter"
+          >
+            <option [ngValue]="null"></option>
+            @for (parameterOption of documentTypesCollection; track $index) {
+              <option [ngValue]="parameterOption">{{ parameterOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employee" jhiTranslate="umbrellaApp.document.employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="compareEmployee"
+          >
+            <option [ngValue]="null"></option>
+            @for (employeeOption of employeesSharedCollection; track $index) {
+              <option [ngValue]="employeeOption">{{ employeeOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employmentContract" jhiTranslate="umbrellaApp.document.employmentContract"
+            >Employment Contract</label
+          >
+          <select
+            class="form-control"
+            id="field_employmentContract"
+            data-cy="employmentContract"
+            name="employmentContract"
+            formControlName="employmentContract"
+            [compareWith]="compareEmploymentContract"
+          >
+            <option [ngValue]="null"></option>
+            @for (employmentContractOption of employmentContractsSharedCollection; track $index) {
+              <option [ngValue]="employmentContractOption">{{ employmentContractOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_serviceContract" jhiTranslate="umbrellaApp.document.serviceContract">Service Contract</label>
+          <select
+            class="form-control"
+            id="field_serviceContract"
+            data-cy="serviceContract"
+            name="serviceContract"
+            formControlName="serviceContract"
+            [compareWith]="compareServiceContract"
+          >
+            <option [ngValue]="null"></option>
+            @for (serviceContractOption of serviceContractsSharedCollection; track $index) {
+              <option [ngValue]="serviceContractOption">{{ serviceContractOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_enterprise" jhiTranslate="umbrellaApp.document.enterprise">Enterprise</label>
+          <select
+            class="form-control"
+            id="field_enterprise"
+            data-cy="enterprise"
+            name="enterprise"
+            formControlName="enterprise"
+            [compareWith]="compareEnterprise"
+          >
+            <option [ngValue]="null"></option>
+            @for (enterpriseOption of enterprisesSharedCollection; track $index) {
+              <option [ngValue]="enterpriseOption">{{ enterpriseOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

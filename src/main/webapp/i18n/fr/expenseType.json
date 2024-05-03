@@ -1,0 +1,26 @@
+{
+  "umbrellaApp": {
+    "expenseType": {
+      "home": {
+        "title": "ExpenseTypes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Expense Type",
+        "createOrEditLabel": "Créer ou éditer un Expense Type",
+        "notFound": "Aucun Expense Type trouvé"
+      },
+      "created": "Un nouveau Expense Type a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Expense Type avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Expense Type avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Expense Type {{ id }} ?"
+      },
+      "detail": {
+        "title": "Expense Type"
+      },
+      "id": "Id",
+      "label": "Label",
+      "description": "Description",
+      "reimbursmentPct": "Reimbursment Pct"
+    }
+  }
+}

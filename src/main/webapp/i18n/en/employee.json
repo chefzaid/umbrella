@@ -1,0 +1,45 @@
+{
+  "umbrellaApp": {
+    "employee": {
+      "home": {
+        "title": "Employees",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Employee",
+        "createOrEditLabel": "Create or edit a Employee",
+        "notFound": "No Employees found"
+      },
+      "created": "A new Employee is created with identifier {{ param }}",
+      "updated": "A Employee is updated with identifier {{ param }}",
+      "deleted": "A Employee is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Employee {{ id }}?"
+      },
+      "detail": {
+        "title": "Employee"
+      },
+      "id": "Id",
+      "employeeNumber": "Employee Number",
+      "birthDate": "Birth Date",
+      "birthPlace": "Birth Place",
+      "nationality": "Nationality",
+      "gender": "Gender",
+      "maritalStatus": "Marital Status",
+      "dependentChildrenNumber": "Dependent Children Number",
+      "socialSecurityNumber": "Social Security Number",
+      "iban": "Iban",
+      "bicSwift": "Bic Swift",
+      "user": "User",
+      "address": "Address",
+      "contract": "Contract",
+      "idDocument": "Id Document",
+      "wallet": "Wallet",
+      "project": "Project",
+      "timesheets": "Timesheets",
+      "expenseNotes": "Expense Notes",
+      "documents": "Documents",
+      "activityReports": "Activity Reports",
+      "paySlips": "Pay Slips",
+      "manager": "Manager"
+    }
+  }
+}

@@ -1,0 +1,123 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-prospect-heading" data-cy="ProspectCreateUpdateHeading" jhiTranslate="umbrellaApp.prospect.home.createOrEditLabel">
+        Créer ou éditer un Prospect
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.prospect.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dailyRate" jhiTranslate="umbrellaApp.prospect.dailyRate">Daily Rate</label>
+          <input type="number" class="form-control" name="dailyRate" id="field_dailyRate" data-cy="dailyRate" formControlName="dailyRate" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_monthlyExpenses" jhiTranslate="umbrellaApp.prospect.monthlyExpenses">Monthly Expenses</label>
+          <input
+            type="number"
+            class="form-control"
+            name="monthlyExpenses"
+            id="field_monthlyExpenses"
+            data-cy="monthlyExpenses"
+            formControlName="monthlyExpenses"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_taxRate" jhiTranslate="umbrellaApp.prospect.taxRate">Tax Rate</label>
+          <input type="number" class="form-control" name="taxRate" id="field_taxRate" data-cy="taxRate" formControlName="taxRate" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expectedStartDate" jhiTranslate="umbrellaApp.prospect.expectedStartDate"
+            >Expected Start Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_expectedStartDate"
+              data-cy="expectedStartDate"
+              type="text"
+              class="form-control"
+              name="expectedStartDate"
+              ngbDatepicker
+              #expectedStartDateDp="ngbDatepicker"
+              formControlName="expectedStartDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="expectedStartDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expectedClient" jhiTranslate="umbrellaApp.prospect.expectedClient">Expected Client</label>
+          <input
+            type="text"
+            class="form-control"
+            name="expectedClient"
+            id="field_expectedClient"
+            data-cy="expectedClient"
+            formControlName="expectedClient"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_notes" jhiTranslate="umbrellaApp.prospect.notes">Notes</label>
+          <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_formula" jhiTranslate="umbrellaApp.prospect.formula">Formula</label>
+          <select
+            class="form-control"
+            id="field_formula"
+            data-cy="formula"
+            name="formula"
+            formControlName="formula"
+            [compareWith]="compareFormula"
+          >
+            <option [ngValue]="null"></option>
+            @for (formulaOption of formulasCollection; track $index) {
+              <option [ngValue]="formulaOption">{{ formulaOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

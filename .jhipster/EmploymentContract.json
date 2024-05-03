@@ -1,0 +1,66 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205647"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "EmploymentContractType",
+      "fieldValues": "PERMNANENT,TEMPORARY"
+    },
+    {
+      "fieldName": "jobTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hireDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "salary",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "yearlyWorkDays",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "signedByEmployer",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "signedByEmployee",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "EmploymentContract",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "formula",
+      "relationshipName": "forumula",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "document",
+      "relationshipName": "documents",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "employmentContract",
+      "relationshipName": "amendments",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

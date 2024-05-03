@@ -1,0 +1,121 @@
+<div>
+  <h2 id="page-heading" data-cy="FormulaHeading">
+    <span jhiTranslate="umbrellaApp.formula.home.title">Formulas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.formula.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-formula"
+        [routerLink]="['/formula/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.formula.home.createLabel">Créer un nouveau Formula</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (formulas?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.formula.home.notFound">Aucun Formula trouvé</span>
+    </div>
+  }
+
+  @if (formulas && formulas.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.formula.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="label">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.formula.label">Label</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="adminFeesPct">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.formula.adminFeesPct">Admin Fees Pct</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="additionalFeesPct">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.formula.additionalFeesPct">Additional Fees Pct</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (formula of formulas; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/formula', formula.id, 'view']">{{ formula.id }}</a>
+              </td>
+              <td>{{ formula.label }}</td>
+              <td>{{ formula.adminFeesPct }}</td>
+              <td>{{ formula.additionalFeesPct }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/formula', formula.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/formula', formula.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(formula)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (formulas && formulas.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

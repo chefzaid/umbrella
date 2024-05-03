@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (timeSheetLine()) {
+      <div>
+        <h2 data-cy="timeSheetLineDetailsHeading"><span jhiTranslate="umbrellaApp.timeSheetLine.detail.title">Time Sheet Line</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.timeSheetLine.id">Id</span></dt>
+          <dd>
+            <span>{{ timeSheetLine()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheetLine.monthlyDays">Monthly Days</span></dt>
+          <dd>
+            <span>{{ timeSheetLine()!.monthlyDays }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheetLine.extraHours">Extra Hours</span></dt>
+          <dd>
+            <span>{{ timeSheetLine()!.extraHours }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheetLine.comments">Comments</span></dt>
+          <dd>
+            <span>{{ timeSheetLine()!.comments }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.timeSheetLine.timeSheet">Time Sheet</span></dt>
+          <dd>
+            @if (timeSheetLine()!.timeSheet) {
+              <div>
+                <a [routerLink]="['/time-sheet', timeSheetLine()!.timeSheet?.id, 'view']">{{ timeSheetLine()!.timeSheet?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/time-sheet-line', timeSheetLine()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

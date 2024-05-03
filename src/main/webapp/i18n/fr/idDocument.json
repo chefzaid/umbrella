@@ -1,0 +1,27 @@
+{
+  "umbrellaApp": {
+    "idDocument": {
+      "home": {
+        "title": "IdDocuments",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Id Document",
+        "createOrEditLabel": "Créer ou éditer un Id Document",
+        "notFound": "Aucun Id Document trouvé"
+      },
+      "created": "Un nouveau Id Document a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Id Document avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Id Document avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Id Document {{ id }} ?"
+      },
+      "detail": {
+        "title": "Id Document"
+      },
+      "id": "Id",
+      "idType": "Id Type",
+      "idNumber": "Id Number",
+      "document": "Document",
+      "employee": "Employee"
+    }
+  }
+}

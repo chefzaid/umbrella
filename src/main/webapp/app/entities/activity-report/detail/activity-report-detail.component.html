@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (activityReport()) {
+      <div>
+        <h2 data-cy="activityReportDetailsHeading"><span jhiTranslate="umbrellaApp.activityReport.detail.title">Activity Report</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.activityReport.id">Id</span></dt>
+          <dd>
+            <span>{{ activityReport()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.activityReport.month">Month</span></dt>
+          <dd>
+            <span>{{ activityReport()!.month | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.activityReport.balance">Balance</span></dt>
+          <dd>
+            <span>{{ activityReport()!.balance }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.activityReport.comments">Comments</span></dt>
+          <dd>
+            <span>{{ activityReport()!.comments }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.activityReport.employee">Employee</span></dt>
+          <dd>
+            @if (activityReport()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', activityReport()!.employee?.id, 'view']">{{ activityReport()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/activity-report', activityReport()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

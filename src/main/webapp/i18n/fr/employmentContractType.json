@@ -1,0 +1,9 @@
+{
+  "umbrellaApp": {
+    "EmploymentContractType": {
+      "null": "",
+      "PERMNANENT": "PERMNANENT",
+      "TEMPORARY": "TEMPORARY"
+    }
+  }
+}

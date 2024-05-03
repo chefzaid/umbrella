@@ -1,0 +1,124 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (employee()) {
+      <div>
+        <h2 data-cy="employeeDetailsHeading"><span jhiTranslate="umbrellaApp.employee.detail.title">Employee</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.employee.id">Id</span></dt>
+          <dd>
+            <span>{{ employee()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.employeeNumber">Employee Number</span></dt>
+          <dd>
+            <span>{{ employee()!.employeeNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.birthDate">Birth Date</span></dt>
+          <dd>
+            <span>{{ employee()!.birthDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.birthPlace">Birth Place</span></dt>
+          <dd>
+            <span>{{ employee()!.birthPlace }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.nationality">Nationality</span></dt>
+          <dd>
+            <span>{{ employee()!.nationality }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.gender">Gender</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.Gender.' + (employee()!.gender ?? 'null')">{{
+              { null: '', MALE: 'MALE', FEMALE: 'FEMALE' }[employee()!.gender ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.maritalStatus">Marital Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'umbrellaApp.MaritalStatus.' + (employee()!.maritalStatus ?? 'null')">{{
+              { null: '', SINGLE: 'SINGLE', MARRIED: 'MARRIED', CIVIL_UNION: 'CIVIL_UNION', DIVORCED: 'DIVORCED', WIDOWED: 'WIDOWED' }[
+                employee()!.maritalStatus ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.dependentChildrenNumber">Dependent Children Number</span></dt>
+          <dd>
+            <span>{{ employee()!.dependentChildrenNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.socialSecurityNumber">Social Security Number</span></dt>
+          <dd>
+            <span>{{ employee()!.socialSecurityNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.iban">Iban</span></dt>
+          <dd>
+            <span>{{ employee()!.iban }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.bicSwift">Bic Swift</span></dt>
+          <dd>
+            <span>{{ employee()!.bicSwift }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.user">User</span></dt>
+          <dd>
+            @if (employee()!.user) {
+              <div>
+                <a [routerLink]="['/app-user', employee()!.user?.id, 'view']">{{ employee()!.user?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.address">Address</span></dt>
+          <dd>
+            @if (employee()!.address) {
+              <div>
+                <a [routerLink]="['/address', employee()!.address?.id, 'view']">{{ employee()!.address?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.contract">Contract</span></dt>
+          <dd>
+            @if (employee()!.contract) {
+              <div>
+                <a [routerLink]="['/employment-contract', employee()!.contract?.id, 'view']">{{ employee()!.contract?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.idDocument">Id Document</span></dt>
+          <dd>
+            @if (employee()!.idDocument) {
+              <div>
+                <a [routerLink]="['/id-document', employee()!.idDocument?.id, 'view']">{{ employee()!.idDocument?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.wallet">Wallet</span></dt>
+          <dd>
+            @if (employee()!.wallet) {
+              <div>
+                <a [routerLink]="['/wallet', employee()!.wallet?.id, 'view']">{{ employee()!.wallet?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.employee.manager">Manager</span></dt>
+          <dd>
+            @if (employee()!.manager) {
+              <div>
+                <a [routerLink]="['/employee', employee()!.manager?.id, 'view']">{{ employee()!.manager?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/employee', employee()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

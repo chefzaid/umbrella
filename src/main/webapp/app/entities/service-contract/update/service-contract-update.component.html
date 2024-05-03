@@ -1,0 +1,179 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-service-contract-heading"
+        data-cy="ServiceContractCreateUpdateHeading"
+        jhiTranslate="umbrellaApp.serviceContract.home.createOrEditLabel"
+      >
+        Créer ou éditer un Service Contract
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.serviceContract.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_serviceLabel" jhiTranslate="umbrellaApp.serviceContract.serviceLabel">Service Label</label>
+          <input
+            type="text"
+            class="form-control"
+            name="serviceLabel"
+            id="field_serviceLabel"
+            data-cy="serviceLabel"
+            formControlName="serviceLabel"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dailyRate" jhiTranslate="umbrellaApp.serviceContract.dailyRate">Daily Rate</label>
+          <input type="number" class="form-control" name="dailyRate" id="field_dailyRate" data-cy="dailyRate" formControlName="dailyRate" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate" jhiTranslate="umbrellaApp.serviceContract.startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate" jhiTranslate="umbrellaApp.serviceContract.endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_extensionTerms" jhiTranslate="umbrellaApp.serviceContract.extensionTerms"
+            >Extension Terms</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="extensionTerms"
+            id="field_extensionTerms"
+            data-cy="extensionTerms"
+            formControlName="extensionTerms"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_signedBySupplier" jhiTranslate="umbrellaApp.serviceContract.signedBySupplier"
+            >Signed By Supplier</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="signedBySupplier"
+            id="field_signedBySupplier"
+            data-cy="signedBySupplier"
+            formControlName="signedBySupplier"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_signedByClient" jhiTranslate="umbrellaApp.serviceContract.signedByClient"
+            >Signed By Client</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="signedByClient"
+            id="field_signedByClient"
+            data-cy="signedByClient"
+            formControlName="signedByClient"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employee" jhiTranslate="umbrellaApp.serviceContract.employee">Employee</label>
+          <select
+            class="form-control"
+            id="field_employee"
+            data-cy="employee"
+            name="employee"
+            formControlName="employee"
+            [compareWith]="compareClient"
+          >
+            <option [ngValue]="null"></option>
+            @for (clientOption of employeesCollection; track $index) {
+              <option [ngValue]="clientOption">{{ clientOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_serviceContract" jhiTranslate="umbrellaApp.serviceContract.serviceContract"
+            >Service Contract</label
+          >
+          <select
+            class="form-control"
+            id="field_serviceContract"
+            data-cy="serviceContract"
+            name="serviceContract"
+            formControlName="serviceContract"
+            [compareWith]="compareServiceContract"
+          >
+            <option [ngValue]="null"></option>
+            @for (serviceContractOption of serviceContractsSharedCollection; track $index) {
+              <option [ngValue]="serviceContractOption">{{ serviceContractOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

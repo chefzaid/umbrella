@@ -1,0 +1,31 @@
+{
+  "umbrellaApp": {
+    "timeSheet": {
+      "home": {
+        "title": "Time Sheets",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Time Sheet",
+        "createOrEditLabel": "Create or edit a Time Sheet",
+        "notFound": "No Time Sheets found"
+      },
+      "created": "A new Time Sheet is created with identifier {{ param }}",
+      "updated": "A Time Sheet is updated with identifier {{ param }}",
+      "deleted": "A Time Sheet is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Time Sheet {{ id }}?"
+      },
+      "detail": {
+        "title": "Time Sheet"
+      },
+      "id": "Id",
+      "concernedMonth": "Concerned Month",
+      "creationDate": "Creation Date",
+      "submitDate": "Submit Date",
+      "validationDate": "Validation Date",
+      "project": "Project",
+      "document": "Document",
+      "lines": "Lines",
+      "employee": "Employee"
+    }
+  }
+}

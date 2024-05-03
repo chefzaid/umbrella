@@ -1,0 +1,35 @@
+{
+  "umbrellaApp": {
+    "employmentContract": {
+      "home": {
+        "title": "Employment Contracts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Employment Contract",
+        "createOrEditLabel": "Create or edit a Employment Contract",
+        "notFound": "No Employment Contracts found"
+      },
+      "created": "A new Employment Contract is created with identifier {{ param }}",
+      "updated": "A Employment Contract is updated with identifier {{ param }}",
+      "deleted": "A Employment Contract is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Employment Contract {{ id }}?"
+      },
+      "detail": {
+        "title": "Employment Contract"
+      },
+      "id": "Id",
+      "type": "Type",
+      "jobTitle": "Job Title",
+      "hireDate": "Hire Date",
+      "salary": "Salary",
+      "yearlyWorkDays": "Yearly Work Days",
+      "signedByEmployer": "Signed By Employer",
+      "signedByEmployee": "Signed By Employee",
+      "forumula": "Forumula",
+      "documents": "Documents",
+      "amendments": "Amendments",
+      "employee": "Employee",
+      "employmentContract": "Employment Contract"
+    }
+  }
+}

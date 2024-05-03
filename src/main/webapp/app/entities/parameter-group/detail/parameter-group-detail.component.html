@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (parameterGroup()) {
+      <div>
+        <h2 data-cy="parameterGroupDetailsHeading"><span jhiTranslate="umbrellaApp.parameterGroup.detail.title">Parameter Group</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.parameterGroup.id">Id</span></dt>
+          <dd>
+            <span>{{ parameterGroup()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.parameterGroup.label">Label</span></dt>
+          <dd>
+            <span>{{ parameterGroup()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.parameterGroup.description">Description</span></dt>
+          <dd>
+            <span>{{ parameterGroup()!.description }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/parameter-group', parameterGroup()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

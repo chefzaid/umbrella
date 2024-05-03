@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (invoiceLine()) {
+      <div>
+        <h2 data-cy="invoiceLineDetailsHeading"><span jhiTranslate="umbrellaApp.invoiceLine.detail.title">Invoice Line</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.id">Id</span></dt>
+          <dd>
+            <span>{{ invoiceLine()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.label">Label</span></dt>
+          <dd>
+            <span>{{ invoiceLine()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.description">Description</span></dt>
+          <dd>
+            <span>{{ invoiceLine()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.price">Price</span></dt>
+          <dd>
+            <span>{{ invoiceLine()!.price }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.quantity">Quantity</span></dt>
+          <dd>
+            <span>{{ invoiceLine()!.quantity }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.invoiceLine.invoice">Invoice</span></dt>
+          <dd>
+            @if (invoiceLine()!.invoice) {
+              <div>
+                <a [routerLink]="['/invoice', invoiceLine()!.invoice?.id, 'view']">{{ invoiceLine()!.invoice?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/invoice-line', invoiceLine()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

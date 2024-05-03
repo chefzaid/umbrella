@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (serviceContract()) {
+      <div>
+        <h2 data-cy="serviceContractDetailsHeading">
+          <span jhiTranslate="umbrellaApp.serviceContract.detail.title">Service Contract</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.id">Id</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.serviceLabel">Service Label</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.serviceLabel }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.dailyRate">Daily Rate</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.dailyRate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.extensionTerms">Extension Terms</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.extensionTerms }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.signedBySupplier">Signed By Supplier</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.signedBySupplier }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.signedByClient">Signed By Client</span></dt>
+          <dd>
+            <span>{{ serviceContract()!.signedByClient }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.employee">Employee</span></dt>
+          <dd>
+            @if (serviceContract()!.employee) {
+              <div>
+                <a [routerLink]="['/client', serviceContract()!.employee?.id, 'view']">{{ serviceContract()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.serviceContract.serviceContract">Service Contract</span></dt>
+          <dd>
+            @if (serviceContract()!.serviceContract) {
+              <div>
+                <a [routerLink]="['/service-contract', serviceContract()!.serviceContract?.id, 'view']">{{
+                  serviceContract()!.serviceContract?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/service-contract', serviceContract()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

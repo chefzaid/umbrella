@@ -1,0 +1,287 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-employee-heading" data-cy="EmployeeCreateUpdateHeading" jhiTranslate="umbrellaApp.employee.home.createOrEditLabel">
+        Créer ou éditer un Employee
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="umbrellaApp.employee.id">Id</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            @if (editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)) {
+              <div>
+                @if (editForm.get('id')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number" jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_employeeNumber" jhiTranslate="umbrellaApp.employee.employeeNumber">Employee Number</label>
+          <input
+            type="number"
+            class="form-control"
+            name="employeeNumber"
+            id="field_employeeNumber"
+            data-cy="employeeNumber"
+            formControlName="employeeNumber"
+          />
+          @if (
+            editForm.get('employeeNumber')!.invalid && (editForm.get('employeeNumber')!.dirty || editForm.get('employeeNumber')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('employeeNumber')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('employeeNumber')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_birthDate" jhiTranslate="umbrellaApp.employee.birthDate">Birth Date</label>
+          <div class="input-group">
+            <input
+              id="field_birthDate"
+              data-cy="birthDate"
+              type="text"
+              class="form-control"
+              name="birthDate"
+              ngbDatepicker
+              #birthDateDp="ngbDatepicker"
+              formControlName="birthDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (editForm.get('birthDate')!.invalid && (editForm.get('birthDate')!.dirty || editForm.get('birthDate')!.touched)) {
+            <div>
+              @if (editForm.get('birthDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_birthPlace" jhiTranslate="umbrellaApp.employee.birthPlace">Birth Place</label>
+          <input
+            type="text"
+            class="form-control"
+            name="birthPlace"
+            id="field_birthPlace"
+            data-cy="birthPlace"
+            formControlName="birthPlace"
+          />
+          @if (editForm.get('birthPlace')!.invalid && (editForm.get('birthPlace')!.dirty || editForm.get('birthPlace')!.touched)) {
+            <div>
+              @if (editForm.get('birthPlace')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nationality" jhiTranslate="umbrellaApp.employee.nationality">Nationality</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nationality"
+            id="field_nationality"
+            data-cy="nationality"
+            formControlName="nationality"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_gender" jhiTranslate="umbrellaApp.employee.gender">Gender</label>
+          <select class="form-control" name="gender" formControlName="gender" id="field_gender" data-cy="gender">
+            <option [ngValue]="null">{{ 'umbrellaApp.Gender.null' | translate }}</option>
+            @for (gender of genderValues; track $index) {
+              <option [value]="gender">{{ 'umbrellaApp.Gender.' + gender | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_maritalStatus" jhiTranslate="umbrellaApp.employee.maritalStatus">Marital Status</label>
+          <select
+            class="form-control"
+            name="maritalStatus"
+            formControlName="maritalStatus"
+            id="field_maritalStatus"
+            data-cy="maritalStatus"
+          >
+            <option [ngValue]="null">{{ 'umbrellaApp.MaritalStatus.null' | translate }}</option>
+            @for (maritalStatus of maritalStatusValues; track $index) {
+              <option [value]="maritalStatus">{{ 'umbrellaApp.MaritalStatus.' + maritalStatus | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dependentChildrenNumber" jhiTranslate="umbrellaApp.employee.dependentChildrenNumber"
+            >Dependent Children Number</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="dependentChildrenNumber"
+            id="field_dependentChildrenNumber"
+            data-cy="dependentChildrenNumber"
+            formControlName="dependentChildrenNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_socialSecurityNumber" jhiTranslate="umbrellaApp.employee.socialSecurityNumber"
+            >Social Security Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="socialSecurityNumber"
+            id="field_socialSecurityNumber"
+            data-cy="socialSecurityNumber"
+            formControlName="socialSecurityNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_iban" jhiTranslate="umbrellaApp.employee.iban">Iban</label>
+          <input type="text" class="form-control" name="iban" id="field_iban" data-cy="iban" formControlName="iban" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_bicSwift" jhiTranslate="umbrellaApp.employee.bicSwift">Bic Swift</label>
+          <input type="text" class="form-control" name="bicSwift" id="field_bicSwift" data-cy="bicSwift" formControlName="bicSwift" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="umbrellaApp.employee.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareAppUser">
+            <option [ngValue]="null"></option>
+            @for (appUserOption of usersCollection; track $index) {
+              <option [ngValue]="appUserOption">{{ appUserOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_address" jhiTranslate="umbrellaApp.employee.address">Address</label>
+          <select
+            class="form-control"
+            id="field_address"
+            data-cy="address"
+            name="address"
+            formControlName="address"
+            [compareWith]="compareAddress"
+          >
+            <option [ngValue]="null"></option>
+            @for (addressOption of addressesCollection; track $index) {
+              <option [ngValue]="addressOption">{{ addressOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contract" jhiTranslate="umbrellaApp.employee.contract">Contract</label>
+          <select
+            class="form-control"
+            id="field_contract"
+            data-cy="contract"
+            name="contract"
+            formControlName="contract"
+            [compareWith]="compareEmploymentContract"
+          >
+            <option [ngValue]="null"></option>
+            @for (employmentContractOption of contractsCollection; track $index) {
+              <option [ngValue]="employmentContractOption">{{ employmentContractOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_idDocument" jhiTranslate="umbrellaApp.employee.idDocument">Id Document</label>
+          <select
+            class="form-control"
+            id="field_idDocument"
+            data-cy="idDocument"
+            name="idDocument"
+            formControlName="idDocument"
+            [compareWith]="compareIdDocument"
+          >
+            <option [ngValue]="null"></option>
+            @for (idDocumentOption of idDocumentsCollection; track $index) {
+              <option [ngValue]="idDocumentOption">{{ idDocumentOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_wallet" jhiTranslate="umbrellaApp.employee.wallet">Wallet</label>
+          <select
+            class="form-control"
+            id="field_wallet"
+            data-cy="wallet"
+            name="wallet"
+            formControlName="wallet"
+            [compareWith]="compareWallet"
+          >
+            <option [ngValue]="null"></option>
+            @for (walletOption of walletsCollection; track $index) {
+              <option [ngValue]="walletOption">{{ walletOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_manager" jhiTranslate="umbrellaApp.employee.manager">Manager</label>
+          <select
+            class="form-control"
+            id="field_manager"
+            data-cy="manager"
+            name="manager"
+            formControlName="manager"
+            [compareWith]="compareEmployee"
+          >
+            <option [ngValue]="null"></option>
+            @for (employeeOption of employeesSharedCollection; track $index) {
+              <option [ngValue]="employeeOption">{{ employeeOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

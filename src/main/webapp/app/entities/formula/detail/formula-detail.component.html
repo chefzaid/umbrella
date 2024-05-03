@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (formula()) {
+      <div>
+        <h2 data-cy="formulaDetailsHeading"><span jhiTranslate="umbrellaApp.formula.detail.title">Formula</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.formula.id">Id</span></dt>
+          <dd>
+            <span>{{ formula()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.formula.label">Label</span></dt>
+          <dd>
+            <span>{{ formula()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.formula.adminFeesPct">Admin Fees Pct</span></dt>
+          <dd>
+            <span>{{ formula()!.adminFeesPct }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.formula.additionalFeesPct">Additional Fees Pct</span></dt>
+          <dd>
+            <span>{{ formula()!.additionalFeesPct }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/formula', formula()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

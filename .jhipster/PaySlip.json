@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205703"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "superGrossSalary",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "grossSalary",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "netSalary",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "taxRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "amountPaid",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalExpenses",
+      "fieldType": "Double"
+    }
+  ],
+  "name": "PaySlip",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "document",
+      "relationshipName": "document",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

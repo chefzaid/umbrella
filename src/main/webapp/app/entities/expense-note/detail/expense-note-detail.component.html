@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (expenseNote()) {
+      <div>
+        <h2 data-cy="expenseNoteDetailsHeading"><span jhiTranslate="umbrellaApp.expenseNote.detail.title">Expense Note</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.id">Id</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.label">Label</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.concernedMonth">Concerned Month</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.concernedMonth }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.creationDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.submitDate">Submit Date</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.submitDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.validationDate">Validation Date</span></dt>
+          <dd>
+            <span>{{ expenseNote()!.validationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.mileageAllowance">Mileage Allowance</span></dt>
+          <dd>
+            @if (expenseNote()!.mileageAllowance) {
+              <div>
+                <a [routerLink]="['/mileage-allowance', expenseNote()!.mileageAllowance?.id, 'view']">{{
+                  expenseNote()!.mileageAllowance?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.document">Document</span></dt>
+          <dd>
+            @if (expenseNote()!.document) {
+              <div>
+                <a [routerLink]="['/document', expenseNote()!.document?.id, 'view']">{{ expenseNote()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.expenseNote.employee">Employee</span></dt>
+          <dd>
+            @if (expenseNote()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', expenseNote()!.employee?.id, 'view']">{{ expenseNote()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/expense-note', expenseNote()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

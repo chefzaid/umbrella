@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (mileageAllowance()) {
+      <div>
+        <h2 data-cy="mileageAllowanceDetailsHeading">
+          <span jhiTranslate="umbrellaApp.mileageAllowance.detail.title">Mileage Allowance</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.mileageAllowance.id">Id</span></dt>
+          <dd>
+            <span>{{ mileageAllowance()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.mileageAllowance.mileage">Mileage</span></dt>
+          <dd>
+            <span>{{ mileageAllowance()!.mileage }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.mileageAllowance.multiplier">Multiplier</span></dt>
+          <dd>
+            <span>{{ mileageAllowance()!.multiplier }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/mileage-allowance', mileageAllowance()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

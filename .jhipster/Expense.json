@@ -1,0 +1,73 @@
+{
+  "annotations": {
+    "changelogDate": "20240503205656"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "currency",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tax",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "expenseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "rebillableToClient",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "validationDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "Expense",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "parameter",
+      "relationshipName": "paymentMethod",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "project",
+      "relationshipName": "project",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

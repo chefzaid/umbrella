@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (document()) {
+      <div>
+        <h2 data-cy="documentDetailsHeading"><span jhiTranslate="umbrellaApp.document.detail.title">Document</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="umbrellaApp.document.id">Id</span></dt>
+          <dd>
+            <span>{{ document()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.label">Label</span></dt>
+          <dd>
+            <span>{{ document()!.label }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.uploadDate">Upload Date</span></dt>
+          <dd>
+            <span>{{ document()!.uploadDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.issuingDate">Issuing Date</span></dt>
+          <dd>
+            <span>{{ document()!.issuingDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.expirationDate">Expiration Date</span></dt>
+          <dd>
+            <span>{{ document()!.expirationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.file">File</span></dt>
+          <dd>
+            @if (document()!.file) {
+              <div>
+                <a (click)="openFile(document()!.file ?? '', document()!.fileContentType)" jhiTranslate="entity.action.open">Ouvrir</a>
+                {{ document()!.fileContentType }}, {{ byteSize(document()!.file ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.documentType">Document Type</span></dt>
+          <dd>
+            @if (document()!.documentType) {
+              <div>
+                <a [routerLink]="['/parameter', document()!.documentType?.id, 'view']">{{ document()!.documentType?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.employee">Employee</span></dt>
+          <dd>
+            @if (document()!.employee) {
+              <div>
+                <a [routerLink]="['/employee', document()!.employee?.id, 'view']">{{ document()!.employee?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.employmentContract">Employment Contract</span></dt>
+          <dd>
+            @if (document()!.employmentContract) {
+              <div>
+                <a [routerLink]="['/employment-contract', document()!.employmentContract?.id, 'view']">{{
+                  document()!.employmentContract?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.serviceContract">Service Contract</span></dt>
+          <dd>
+            @if (document()!.serviceContract) {
+              <div>
+                <a [routerLink]="['/service-contract', document()!.serviceContract?.id, 'view']">{{ document()!.serviceContract?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="umbrellaApp.document.enterprise">Enterprise</span></dt>
+          <dd>
+            @if (document()!.enterprise) {
+              <div>
+                <a [routerLink]="['/enterprise', document()!.enterprise?.id, 'view']">{{ document()!.enterprise?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/document', document()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

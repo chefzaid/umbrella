@@ -1,0 +1,191 @@
+<div>
+  <h2 id="page-heading" data-cy="EmploymentContractHeading">
+    <span jhiTranslate="umbrellaApp.employmentContract.home.title">EmploymentContracts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="umbrellaApp.employmentContract.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-employment-contract"
+        [routerLink]="['/employment-contract/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="umbrellaApp.employmentContract.home.createLabel">Créer un nouveau Employment Contract</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (employmentContracts?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="umbrellaApp.employmentContract.home.notFound">Aucun Employment Contract trouvé</span>
+    </div>
+  }
+
+  @if (employmentContracts && employmentContracts.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="type">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.type">Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="jobTitle">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.jobTitle">Job Title</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="hireDate">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.hireDate">Hire Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="salary">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.salary">Salary</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="yearlyWorkDays">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.yearlyWorkDays">Yearly Work Days</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="signedByEmployer">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.signedByEmployer">Signed By Employer</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="signedByEmployee">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.signedByEmployee">Signed By Employee</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="forumula.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.forumula">Forumula</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="employmentContract.id">
+              <div class="d-flex">
+                <span jhiTranslate="umbrellaApp.employmentContract.employmentContract">Employment Contract</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (employmentContract of employmentContracts; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/employment-contract', employmentContract.id, 'view']">{{ employmentContract.id }}</a>
+              </td>
+              <td [jhiTranslate]="'umbrellaApp.EmploymentContractType.' + (employmentContract.type ?? 'null')">
+                {{ { null: '', PERMNANENT: 'PERMNANENT', TEMPORARY: 'TEMPORARY' }[employmentContract.type ?? 'null'] }}
+              </td>
+              <td>{{ employmentContract.jobTitle }}</td>
+              <td>{{ employmentContract.hireDate | formatMediumDate }}</td>
+              <td>{{ employmentContract.salary }}</td>
+              <td>{{ employmentContract.yearlyWorkDays }}</td>
+              <td>{{ employmentContract.signedByEmployer }}</td>
+              <td>{{ employmentContract.signedByEmployee }}</td>
+              <td>
+                @if (employmentContract.forumula) {
+                  <div>
+                    <a [routerLink]="['/formula', employmentContract.forumula.id, 'view']">{{ employmentContract.forumula.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (employmentContract.employmentContract) {
+                  <div>
+                    <a [routerLink]="['/employment-contract', employmentContract.employmentContract.id, 'view']">{{
+                      employmentContract.employmentContract.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/employment-contract', employmentContract.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/employment-contract', employmentContract.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(employmentContract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (employmentContracts && employmentContracts.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>
