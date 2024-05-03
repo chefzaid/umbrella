@@ -1,0 +1,334 @@
+
+// Entities
+entity Address {
+	id Long required unique
+	streetAddress String
+	postalCode String
+	city String required
+    country String
+}
+
+entity Contact {
+	id Long required unique
+	firstName String required
+    lastName String required
+	email String required
+	phoneNumber String required
+    jobTitle String
+}
+
+entity Prospect {
+	id Long required unique
+    dailyRate Long
+    monthlyExpenses Long
+    taxRate Double
+    expectedStartDate LocalDate
+    expectedClient String
+    notes String
+}
+
+entity AppUser {
+	id Long required unique
+    username String required
+    password String required
+    photo Blob
+    isAdmin Boolean
+    creationDate Instant
+}
+
+entity Employee {
+	id Long required unique
+	employeeNumber Long required
+    birthDate LocalDate required
+    birthPlace String required
+    nationality String
+    gender Gender
+    maritalStatus MaritalStatus
+    dependentChildrenNumber Long
+    socialSecurityNumber String
+    iban String
+    bicSwift String
+}
+
+entity IdDocument {
+	id Long required unique
+	idType IdType required
+    idNumber String required
+}
+
+entity EmploymentContract {
+	id Long required unique
+	type EmploymentContractType
+	jobTitle String
+	hireDate LocalDate
+    salary Double
+    yearlyWorkDays Long
+    signedByEmployer Boolean
+    signedByEmployee Boolean
+}
+
+entity ServiceContract {
+	id Long required unique
+	serviceLabel String
+    dailyRate Double
+	startDate LocalDate
+    endDate LocalDate
+    extensionTerms String
+    signedBySupplier Boolean
+    signedByClient Boolean
+}
+
+entity Project {
+	id Long required unique
+	type ProjectType
+	state ProjectState
+	title String
+	description String
+    dailyRate Long required
+    startDate LocalDate
+    endDate LocalDate
+    remoteWorkPct Double
+}
+
+entity Client {
+	id Long required unique
+	name String required
+	companyStatus String
+}
+
+entity Formula {
+	id Long required unique
+	label String
+    adminFeesPct Double
+    additionalFeesPct Double
+}
+
+entity Document {
+	id Long required unique
+    label String
+    uploadDate Instant
+    issuingDate Instant
+    expirationDate Instant
+    file Blob required
+}
+
+entity TimeSheet {
+	id Long required unique
+    concernedMonth String required
+    creationDate LocalDate
+    submitDate Instant
+    validationDate Instant
+}
+
+entity TimeSheetLine {
+	id Long required unique
+	monthlyDays Double required
+    extraHours Double
+    comments String
+}
+
+entity ExpenseNote {
+	id Long required unique
+	label String
+    concernedMonth String
+    creationDate LocalDate
+    submitDate Instant
+    validationDate Instant
+}
+
+entity Expense {
+	id Long required unique
+	label String required
+    description String
+    amount Double required
+    currency String
+    tax Double
+    expenseDate LocalDate
+    rebillableToClient Boolean
+    comment String
+    submitDate Instant
+    validationDate Instant
+}
+
+entity MileageAllowance {
+	id Long required unique
+	mileage Double required
+    multiplier Long
+}
+
+entity Invoice {
+	id Long required unique
+	invoiceNumber String required
+    label String
+    issueDate Instant required
+    currency String
+    salesTaxPct Double
+    terms String
+}
+
+entity InvoiceLine {
+	id Long required unique
+    label String required
+	description String
+	price Double required
+    quantity Double
+}
+
+entity Wallet {
+	id Long required unique
+	totalBalance Double
+	totalProvision Double
+}
+
+entity ActivityReport {
+	id Long required unique
+	month LocalDate
+	balance Double
+    comments String
+}
+
+entity Operation {
+	id Long required unique
+	description String
+    amount Double
+    operationType OperationType
+}
+
+entity PaySlip {
+	id Long required unique
+    superGrossSalary Double
+    grossSalary Double
+    netSalary Double
+    taxRate Double
+    amountPaid Double
+    totalExpenses Double
+}
+
+entity Enterprise {
+	id Long required unique
+	name String
+    companyStatus String
+    logo Blob
+    siret String
+    siren String
+    salesTaxNumber String
+    iban String
+    bicSwift String
+    website String
+    defaultInvoiceTerms String
+}
+
+entity Parameter {
+	id Long required unique
+	label String
+    value String
+}
+
+entity ParameterGroup {
+	id Long required unique
+	label String
+    description String
+}
+
+entity ExpenseType {
+	id Long required unique
+	label String
+    description String
+    reimbursmentPct Double
+}
+
+entity Notification {
+	id Long required unique
+    title String
+    description String
+    creationDate Instant
+    readDate Instant
+    hide Boolean
+}
+
+// Enums
+enum ProjectType {
+    NONBILLABLE, BILLABLE
+}
+
+enum ProjectState {
+    CURRENT, STANDBY, ARCHIVED
+}
+
+enum EmploymentContractType {
+    PERMNANENT, TEMPORARY
+}
+
+enum OperationType {
+	CREDIT, DEBIT
+}
+
+enum Gender {
+	MALE, FEMALE
+}
+
+enum MaritalStatus {
+	SINGLE, MARRIED, CIVIL_UNION, DIVORCED, WIDOWED
+}
+
+enum IdType {
+	PASSPORT, NATIONAL_ID, RESIDENCY_PERMIT, DRIVING_LICENSE
+}
+
+// Relationships
+relationship OneToOne {
+    Contact{address} to Address
+    Prospect{formula} to Formula
+    AppUser{contact} to Contact
+    Employee{user} to AppUser
+    Employee{address} to Address
+    Employee{contract} to EmploymentContract
+    Employee{idDocument} to IdDocument
+	Employee{wallet} to Wallet
+    EmploymentContract{forumula} to Formula
+    ServiceContract{employee} to Client
+    Project{client} to Client
+    Client{address} to Address
+    TimeSheet{project} to Project
+    TimeSheet{document} to Document
+    ExpenseNote{mileageAllowance} to MileageAllowance
+    ExpenseNote{document} to Document
+    Expense{paymentMethod} to Parameter
+    Expense{project} to Project
+    IdDocument{document} to Document
+    Document{documentType} to Parameter
+    Invoice{poject} to Project
+    Invoice{document} to Document
+    PaySlip{document} to Document
+}
+
+relationship OneToMany {
+	AppUser{preferences} to Parameter
+    Client{contacts} to Contact
+    EmploymentContract{documents} to Document
+    EmploymentContract{amendments} to EmploymentContract
+  	ServiceContract{documents} to Document
+    ServiceContract{amendments} to ServiceContract
+    Employee{project} to Project
+    Employee{timesheets} to TimeSheet
+    Employee{expenseNotes} to ExpenseNote
+    Employee{documents} to Document
+    Employee{activityReports} to ActivityReport
+    Employee{paySlips} to PaySlip
+    TimeSheet{lines} to TimeSheetLine
+    Invoice{lines} to InvoiceLine
+    ExpenseNote{expenses} to Expense
+    ActivityReport{operations} to Operation
+    Enterprise{parameters} to Parameter
+    Enterprise{documents} to Document
+}
+
+relationship ManyToOne {
+    Employee{manager} to Employee
+    Notification{author} to Employee
+    Notification{receiver} to Employee
+}
+
+// Options
+paginate all with pagination
+service all with serviceImpl
